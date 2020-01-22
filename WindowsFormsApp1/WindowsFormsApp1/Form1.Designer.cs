@@ -36,6 +36,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.txtInfo = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -100,11 +101,23 @@
             this.txtInfo.Size = new System.Drawing.Size(227, 375);
             this.txtInfo.TabIndex = 3;
             // 
+            // button2
+            // 
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Location = new System.Drawing.Point(145, 336);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(127, 39);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "Разное";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(916, 408);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.txtInfo);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.pictureBox1);
@@ -130,6 +143,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.TextBox txtInfo;
+        private System.Windows.Forms.Button button2;
     }
 }
 

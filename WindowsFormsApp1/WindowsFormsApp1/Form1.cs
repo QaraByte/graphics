@@ -14,12 +14,16 @@ namespace WindowsFormsApp1
     {
         Bitmap b;
         Graphics g;
+        Image image;
+        Rectangle rect;
 
         public Form1()
         {
             InitializeComponent();
             b = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             g = Graphics.FromImage(b);
+            //image = Properties.Resources.hyundai_elantra;
+            //rect = new Rectangle(20, 20, 70, 70);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -35,7 +39,7 @@ namespace WindowsFormsApp1
         int y2 = 0;
         Random rnd = new Random();
         const int UNDERGROUND= 300;
-        int steps = 20;
+        int steps = 21;
         string direction = "right";
         const string RIGHT = "right";
         const string LEFT = "left";
@@ -107,41 +111,51 @@ namespace WindowsFormsApp1
             pictureBox1.Image = b;
 
             statusLabel1.Text = "Координаты: x1=" + x1 + "; y1=" + y1 + "; x2=" + x2 + "; y2=" + y2;
-            txtInfo.Text += "Шаг: " + c1 + ". " + direction + Environment.NewLine;
+            txtInfo.Text += "Шаг: " + c + ". " + direction + Environment.NewLine;
             txtInfo.Text += "Координаты: x1=" + x1 + "; y1=" + y1 + "; x2=" + x2 + "; y2=" + y2 + Environment.NewLine;
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-
+            //g = e.Graphics;
+            //g.DrawImage(image, rect);
         }
-
-        int c1 = 1;
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            DrawLineCity(c1);
-
-            c1++;
-
-            if (c1 > steps)
+            for (int i = 1; i < steps; i++)
             {
-                c1 = 1;
-                button1.Enabled = true;
-                timer1.Enabled = false;
-                return;
+                DrawLineCity(i);
             }
-                
+
+            //c1++;
+
+            //if (i >= steps - 1)
+            //{
+            //    c1 = 1;
+            //    button1.Enabled = true;
+            //    timer1.Enabled = false;
+            //    return;
+            //}
+
             timer1.Enabled = false;
             timer2.Enabled = true;
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            DrawLineCity(c1);
-            c1++;
-            timer1.Enabled = true;
+            for (int i = 1; i < steps; i++)
+            {
+                DrawLineCity(i);
+            }
+            //c1++;
+            //timer1.Enabled = true;
             timer2.Enabled = false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
