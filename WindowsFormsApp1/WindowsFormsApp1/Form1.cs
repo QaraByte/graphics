@@ -25,8 +25,6 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
             timer1.Enabled = true;
-            //DrawLineInt(100, 100, 300, 150);
-            //DrawLineInt(300, 150, 200, 350);
             button1.Enabled = false;
         }
 
@@ -36,30 +34,80 @@ namespace WindowsFormsApp1
         int x2 = 0;
         int y2 = 0;
         Random rnd = new Random();
+        const int UNDERGROUND= 300;
+        int steps = 20;
+        string direction = "right";
+        const string RIGHT = "right";
+        const string LEFT = "left";
+        const string UP = "up";
+        const string DOWN = "down";
+        string dir = RIGHT;
+        const int BETWEEN = 10;
 
-        public void DrawLineInt(int c)
+        public void DrawLineCity(int c)
         {
             switch (c)
             {
-                case 1: x1 = 1; y1 = 300; x2 = rnd.Next(30, 50); y2 = 300; break;           // ->>
-                case 2: x1 = x2; y1 = y2; x2 = x1; y2 = rnd.Next(200, 300); break;          // /\
-                case 3: x1 = x2; y1 = y2; x2 = x1 + rnd.Next(x1 + 20, x1 + 50); break;      // ->>
-                case 4: x1 = x2; y1 = y2; x2 = x1; y2 = 300; break;                         // \/
-                case 5: x1 = x2; y1 = y2; x2 = rnd.Next(x1, x1 + 20); y2 = 300; break;      // ->>
-                case 6: x1 = x2; y1 = y2; x2 = x1; y2 = rnd.Next(200, 300); break;          // /\
-                case 7: x1 = x2; y1 = y2; x2 = rnd.Next(x1 + 20, x1 + 50); y2 = y1; break;  // ->>
-                case 8: x1 = x2; y1 = y2; x2 = x1; y2 = 300; break;                         // \/
-                case 9: x1 = x2; y1 = y2; x2 = rnd.Next(x1, x1 + 20); y2 = 300; break;      // ->>
-                case 10: x1 = x2; y1 = y2; x2 = x1; y2 = rnd.Next(200, 300); break;         // /\
-                case 11: x1 = x2; y1 = y2; x2 = rnd.Next(x1+20, x1 + 50); y2 = y1; break;   // ->>
-                case 12: x1 = x2; y1 = y2; x2 = x1; y2 = 300; break;                        // \/
+                case 1: direction = RIGHT; break;
+                case 2: direction = UP; break;
+                case 3: direction = RIGHT; break;
+                case 4: direction = DOWN; break;
+                case 5: direction = RIGHT; break;
+                case 6: direction = UP; break;
+                case 7: direction = RIGHT; break;
+                case 8: direction = DOWN; break;
+                case 9: direction = RIGHT; break;
+                case 10: direction = UP; break;
+                case 11: direction = RIGHT; break;
+                case 12: direction = DOWN; break;
+                case 13: direction = RIGHT; break;
+                case 14: direction = UP; break;
+                case 15: direction = RIGHT; break;
+                case 16: direction = DOWN; break;
+                case 17: direction = RIGHT; break;
+                case 18: direction = UP; break;
+                case 19: direction = RIGHT; break;
+                case 20: direction = DOWN; break;
+            }
+
+            if (direction == RIGHT)
+            {
+                if (x1 == 0)
+                {
+                    x1 = 1; y1 = UNDERGROUND; x2 = 15; y2 = UNDERGROUND;
+                }
+                else
+                {
+                    if (dir == UP)
+                    {
+                        x1 = x2; y1 = y2; x2 = x1 + rnd.Next(40, 70);
+                        dir = RIGHT;
+                    }
+                    else
+                    {
+                        x1 = x2; y1 = y2; x2 = x1 + BETWEEN;
+                    }
+                }
+            }
+            else if (direction == LEFT)
+            {
+
+            }
+            else if (direction == UP)
+            {
+                x1 = x2; y1 = y2; x2 = x1; y2 = rnd.Next(180, 280);
+                dir = UP;
+            }
+            else
+            {
+                x1 = x2; y1 = y2; x2 = x1; y2 = UNDERGROUND;
             }
 
             g.DrawLine(p, x1, y1, x2, y2);
             pictureBox1.Image = b;
-            
+
             statusLabel1.Text = "Координаты: x1=" + x1 + "; y1=" + y1 + "; x2=" + x2 + "; y2=" + y2;
-            txtInfo.Text += "Шаг: " + c1 + Environment.NewLine;
+            txtInfo.Text += "Шаг: " + c1 + ". " + direction + Environment.NewLine;
             txtInfo.Text += "Координаты: x1=" + x1 + "; y1=" + y1 + "; x2=" + x2 + "; y2=" + y2 + Environment.NewLine;
         }
 
@@ -72,11 +120,11 @@ namespace WindowsFormsApp1
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            DrawLineInt(c1);
+            DrawLineCity(c1);
 
             c1++;
 
-            if (c1 > 11)
+            if (c1 > steps)
             {
                 c1 = 1;
                 button1.Enabled = true;
@@ -90,7 +138,7 @@ namespace WindowsFormsApp1
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            DrawLineInt(c1);
+            DrawLineCity(c1);
             c1++;
             timer1.Enabled = true;
             timer2.Enabled = false;
