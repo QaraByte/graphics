@@ -14,31 +14,36 @@ namespace WindowsFormsApp1
     {
         Bitmap b;
         Graphics g;
-        Image image;
-        Rectangle rect;
+        //Image image;
+        //Rectangle rect;
 
         public Form1()
         {
             InitializeComponent();
-            b = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            g = Graphics.FromImage(b);
             //image = Properties.Resources.hyundai_elantra;
             //rect = new Rectangle(20, 20, 70, 70);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            b = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            g = Graphics.FromImage(b);
+            p = new Pen(Color.Blue);
+            txtInfo.Text += "Ширина холста: " + b.Width + Environment.NewLine;
             timer1.Enabled = true;
             button1.Enabled = false;
         }
 
-        Pen p = new Pen(Color.Blue);
+        Pen p;
         int x1 = 0;
         int y1 = 0;
         int x2 = 0;
         int y2 = 0;
         Random rnd = new Random();
         const int UNDERGROUND= 300;
+        /// <summary>
+        /// Количество шагов
+        /// </summary>
         int steps = 21;
         string direction = "right";
         const string RIGHT = "right";
@@ -47,38 +52,22 @@ namespace WindowsFormsApp1
         const string DOWN = "down";
         string dir = RIGHT;
         const int BETWEEN = 10;
+        int houses = 1;
 
         public void DrawLineCity(int c)
         {
-            switch (c)
-            {
-                case 1: direction = RIGHT; break;
-                case 2: direction = UP; break;
-                case 3: direction = RIGHT; break;
-                case 4: direction = DOWN; break;
-                case 5: direction = RIGHT; break;
-                case 6: direction = UP; break;
-                case 7: direction = RIGHT; break;
-                case 8: direction = DOWN; break;
-                case 9: direction = RIGHT; break;
-                case 10: direction = UP; break;
-                case 11: direction = RIGHT; break;
-                case 12: direction = DOWN; break;
-                case 13: direction = RIGHT; break;
-                case 14: direction = UP; break;
-                case 15: direction = RIGHT; break;
-                case 16: direction = DOWN; break;
-                case 17: direction = RIGHT; break;
-                case 18: direction = UP; break;
-                case 19: direction = RIGHT; break;
-                case 20: direction = DOWN; break;
-            }
+            if (c % 2 != 0)
+                direction = RIGHT;
+            else if (c == 2 || FuncUP(c))
+                direction = UP;
+            else if (c % 4 == 0)
+                direction = DOWN;
 
             if (direction == RIGHT)
             {
                 if (x1 == 0)
                 {
-                    x1 = 1; y1 = UNDERGROUND; x2 = 15; y2 = UNDERGROUND;
+                    x1 = 1; y1 = UNDERGROUND; x2 = 20; y2 = UNDERGROUND;
                 }
                 else
                 {
@@ -90,6 +79,14 @@ namespace WindowsFormsApp1
                     else
                     {
                         x1 = x2; y1 = y2; x2 = x1 + BETWEEN;
+                        //Если ширина Bitmap рядом, то проводим линию до конца
+                        if (x2 > b.Width - 90 && houses >= 9)
+                        {
+                            x2 = x1 + 100;
+                            timer1.Enabled = false;
+                            timer2.Enabled = false;
+                            button1.Enabled = true;
+                        }
                     }
                 }
             }
@@ -105,6 +102,8 @@ namespace WindowsFormsApp1
             else
             {
                 x1 = x2; y1 = y2; x2 = x1; y2 = UNDERGROUND;
+                houses += 1;
+                txtInfo.Text += "Количество домов: " + houses + Environment.NewLine;
             }
 
             g.DrawLine(p, x1, y1, x2, y2);
@@ -150,12 +149,32 @@ namespace WindowsFormsApp1
             }
             //c1++;
             //timer1.Enabled = true;
+            button1.Enabled = true;
             timer2.Enabled = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             
+        }
+
+        public bool FuncUP(int c)
+        {
+            double i = Math.Ceiling(Convert.ToDouble(c / 4));
+            for (int j = 0; j < i; j++)
+            {
+                c = c - 4;
+                if (c - 2 == 0)
+                    return true;
+            }
+            return false;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            g.Clear(Color.White);
+            pictureBox1.Refresh();
+            txtInfo.Text = "";
         }
     }
 }

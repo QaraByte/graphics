@@ -37,6 +37,7 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.txtInfo = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -112,11 +113,23 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // btnClear
+            // 
+            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClear.Location = new System.Drawing.Point(547, 336);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(127, 39);
+            this.btnClear.TabIndex = 5;
+            this.btnClear.Text = "Очистить";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(916, 408);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.txtInfo);
             this.Controls.Add(this.statusStrip1);
@@ -144,6 +157,7 @@
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.TextBox txtInfo;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnClear;
     }
 }
 
