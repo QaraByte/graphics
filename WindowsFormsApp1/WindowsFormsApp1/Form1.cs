@@ -127,16 +127,6 @@ namespace WindowsFormsApp1
                 DrawLineCity(i);
             }
 
-            //c1++;
-
-            //if (i >= steps - 1)
-            //{
-            //    c1 = 1;
-            //    button1.Enabled = true;
-            //    timer1.Enabled = false;
-            //    return;
-            //}
-
             timer1.Enabled = false;
             timer2.Enabled = true;
         }
@@ -147,8 +137,7 @@ namespace WindowsFormsApp1
             {
                 DrawLineCity(i);
             }
-            //c1++;
-            //timer1.Enabled = true;
+            
             button1.Enabled = true;
             timer2.Enabled = false;
         }
@@ -175,6 +164,7 @@ namespace WindowsFormsApp1
             g.Clear(Color.White);
             pictureBox1.Refresh();
             txtInfo.Text = "";
+            x1 = 0;
         }
     }
 }
