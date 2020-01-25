@@ -22,67 +22,68 @@ namespace WindowsFormsApp1
             InitializeComponent();
             //image = Properties.Resources.hyundai_elantra;
             //rect = new Rectangle(20, 20, 70, 70);
+            b = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            g = Graphics.FromImage(b);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            b = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            g = Graphics.FromImage(b);
-            p = new Pen(Color.Blue);
             txtInfo.Text += "Ширина холста: " + b.Width + Environment.NewLine;
             timer1.Enabled = true;
             button1.Enabled = false;
         }
 
-        Pen p;
-        int x1 = 0;
-        int y1 = 0;
-        int x2 = 0;
-        int y2 = 0;
         Random rnd = new Random();
-        const int UNDERGROUND= 300;
-        /// <summary>
-        /// Количество шагов
-        /// </summary>
-        int steps = 21;
-        string direction = "right";
+        
         const string RIGHT = "right";
         const string LEFT = "left";
         const string UP = "up";
         const string DOWN = "down";
-        string dir = RIGHT;
+        /// <summary>
+        /// Количество шагов
+        /// </summary>
+        int steps = 21;
         const int BETWEEN = 10;
-        int houses = 1;
+        int houses = 0;
+        CoreDraw outlinecity = new CoreDraw(Color.Blue, 1);
 
         public void DrawLineCity(int c)
         {
             if (c % 2 != 0)
-                direction = RIGHT;
+                outlinecity.direction = RIGHT;
             else if (c == 2 || FuncUP(c))
-                direction = UP;
+                outlinecity.direction = UP;
             else if (c % 4 == 0)
-                direction = DOWN;
+                outlinecity.direction = DOWN;
 
-            if (direction == RIGHT)
+            if (outlinecity.direction == RIGHT)
             {
-                if (x1 == 0)
+                if (outlinecity.x1 == 0)
                 {
-                    x1 = 1; y1 = UNDERGROUND; x2 = 20; y2 = UNDERGROUND;
+                    outlinecity.x1 = 1;
+                    outlinecity.y1 = outlinecity.UNDERGROUND;
+                    outlinecity.x2 = 20;
+                    outlinecity.y2 = outlinecity.UNDERGROUND;
                 }
                 else
                 {
-                    if (dir == UP)
+                    if (outlinecity.pastDir == UP)
                     {
-                        x1 = x2; y1 = y2; x2 = x1 + rnd.Next(40, 70);
-                        dir = RIGHT;
+                        outlinecity.x1 = outlinecity.x2;
+                        outlinecity.y1 = outlinecity.y2;
+                        outlinecity.x2 = outlinecity.x1 + rnd.Next(40, 70);
+                        outlinecity.pastDir = RIGHT;
                     }
                     else
                     {
-                        x1 = x2; y1 = y2; x2 = x1 + BETWEEN;
+                        outlinecity.x1 = outlinecity.x2;
+                        outlinecity.y1 = outlinecity.y2;
+                        outlinecity.x2 = outlinecity.x1 + BETWEEN;
+                        outlinecity.pastDir = RIGHT;
                         //Если ширина Bitmap рядом, то проводим линию до конца
-                        if (x2 > b.Width - 90 && houses >= 9)
+                        if (outlinecity.x2 > b.Width - 90 && houses >= 9)
                         {
-                            x2 = x1 + 100;
+                            outlinecity.x2 = outlinecity.x1 + 100;
                             timer1.Enabled = false;
                             timer2.Enabled = false;
                             button1.Enabled = true;
@@ -90,28 +91,35 @@ namespace WindowsFormsApp1
                     }
                 }
             }
-            else if (direction == LEFT)
+            else if (outlinecity.direction == LEFT)
             {
 
             }
-            else if (direction == UP)
+            else if (outlinecity.direction == UP)
             {
-                x1 = x2; y1 = y2; x2 = x1; y2 = rnd.Next(180, 280);
-                dir = UP;
+                outlinecity.x1 = outlinecity.x2;
+                outlinecity.y1 = outlinecity.y2;
+                outlinecity.x2 = outlinecity.x1;
+                outlinecity.y2 = rnd.Next(180, 280);
+                outlinecity.pastDir = UP;
             }
-            else
+            else //Направление вниз
             {
-                x1 = x2; y1 = y2; x2 = x1; y2 = UNDERGROUND;
+                outlinecity.x1 = outlinecity.x2;
+                outlinecity.y1 = outlinecity.y2;
+                outlinecity.x2 = outlinecity.x1;
+                outlinecity.y2 = outlinecity.UNDERGROUND;
                 houses += 1;
+                outlinecity.pastDir = DOWN;
                 txtInfo.Text += "Количество домов: " + houses + Environment.NewLine;
             }
 
-            g.DrawLine(p, x1, y1, x2, y2);
+            g.DrawLine(outlinecity.pen, outlinecity.x1, outlinecity.y1, outlinecity.x2, outlinecity.y2);
             pictureBox1.Image = b;
 
-            statusLabel1.Text = "Координаты: x1=" + x1 + "; y1=" + y1 + "; x2=" + x2 + "; y2=" + y2;
-            txtInfo.Text += "Шаг: " + c + ". " + direction + Environment.NewLine;
-            txtInfo.Text += "Координаты: x1=" + x1 + "; y1=" + y1 + "; x2=" + x2 + "; y2=" + y2 + Environment.NewLine;
+            statusLabel1.Text = "Координаты: x1=" + outlinecity.x1 + "; y1=" + outlinecity.y1 + "; x2=" + outlinecity.x2 + "; y2=" + outlinecity.y2;
+            txtInfo.Text += "Шаг: " + c + ". " + outlinecity.direction + Environment.NewLine;
+            txtInfo.Text += "Координаты: x1=" + outlinecity.x1 + "; y1=" + outlinecity.y1 + "; x2=" + outlinecity.x2 + "; y2=" + outlinecity.y2 + Environment.NewLine;
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -120,14 +128,15 @@ namespace WindowsFormsApp1
             //g.DrawImage(image, rect);
         }
 
+        int c = 0;
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            for (int i = 1; i < steps; i++)
-            {
-                DrawLineCity(i);
-            }
+            DrawLineCity(c);
+            c++;
 
-            timer1.Enabled = false;
+            if (c == steps)
+                timer1.Enabled = false;
             timer2.Enabled = true;
         }
 
@@ -164,7 +173,8 @@ namespace WindowsFormsApp1
             g.Clear(Color.White);
             pictureBox1.Refresh();
             txtInfo.Text = "";
-            x1 = 0;
+            outlinecity = new CoreDraw(Color.Orange, 1);
+            houses = 0;
         }
     }
 }
