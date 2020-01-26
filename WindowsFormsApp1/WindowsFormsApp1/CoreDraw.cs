@@ -9,12 +9,8 @@ namespace WindowsFormsApp1
 {
     public class CoreDraw
     {
-        /// <summary>
-        /// Нижний предел
-        /// </summary>
-        public int UNDERGROUND;
-        
-        public Pen pen;     
+        public Pen pen;
+        public Graphics g;
     }
 
     public class CoreDrawCity:CoreDraw
@@ -51,9 +47,10 @@ namespace WindowsFormsApp1
         public Coords coords;
         Directions directions = new Directions();
         /// <summary>
-        /// Предыдущее направление
+        /// Нижний предел
         /// </summary>
-        public string pastDir;
+        public int UNDERGROUND;
+        public Point[] points = new Point[100];
 
         /// <summary>
         /// Конструктор класса
@@ -64,12 +61,12 @@ namespace WindowsFormsApp1
         {
             pen = new Pen(color);
             pen.Width = w;
-            base.UNDERGROUND = 300;
+            UNDERGROUND = 300;
             directions.RIGHT = "right";
             coords = new Coords();
         }
 
-        public void DrawLineCity(int c)
+        public bool DrawLineCity(int c, string dir, int w)
         {
             if (c % 2 != 0)
                 direction = directions.RIGHT;
@@ -82,26 +79,43 @@ namespace WindowsFormsApp1
             {
                 if (coords.x1 == 0)
                 {
-                    coords.x1 = 1;
+                    coords.x1 = 0;
                     coords.y1 = UNDERGROUND;
-                    coords.x2 = 20;
+                    coords.x2 = 30;
                     coords.y2 = UNDERGROUND;
                 }
                 else
                 {
-                    if (pastDir == directions.UP)
+                    if (dir == directions.UP)
                     {
                         coords.x1 = coords.x2;
                         coords.y1 = coords.y2;
                         coords.x2 = coords.x1 + rnd.Next(40, 70);
-                        pastDir = directions.RIGHT;
                     }
                     else
                     {
-                        coords.x1 = coords.x2;
-                        coords.y1 = coords.y2;
-                        coords.x2 = coords.x1 + BETWEEN;
-                        pastDir = directions.RIGHT;
+                        if (DrawLineCityEnd(w))
+                        {
+                            coords.x1 = coords.x2;
+                            coords.y1 = coords.y2;
+                            coords.x2 = coords.x1 + 100;
+                            Point point3 = new Point();
+                            point3.X = coords.x1;
+                            point3.Y = coords.y1;
+                            points[c] = point3;
+                            Point point4 = new Point();
+                            point4.X = coords.x2;
+                            point4.Y = coords.y2;
+                            points[c + 1] = point4;
+                            base.g.DrawLine(base.pen, coords.x1, coords.y1, coords.x2, coords.y2);
+                            return true;
+                        }
+                        else
+                        {
+                            coords.x1 = coords.x2;
+                            coords.y1 = coords.y2;
+                            coords.x2 = coords.x1 + BETWEEN;
+                        }
                     }
                 }
             }
@@ -113,19 +127,43 @@ namespace WindowsFormsApp1
             {
                 coords.x1 = coords.x2;
                 coords.y1 = coords.y2;
-                coords.x2 = coords.x1;
                 coords.y2 = rnd.Next(180, 280);
-                pastDir = directions.UP;
             }
             else //Направление вниз
             {
                 coords.x1 = coords.x2;
                 coords.y1 = coords.y2;
-                coords.x2 = coords.x1;
                 coords.y2 = UNDERGROUND;
                 houses += 1;
-                pastDir = directions.DOWN;
             }
+
+            Point point1 = new Point();
+            point1.X = coords.x1;
+            point1.Y = coords.y1;
+            points[c] = point1;
+            Point point2 = new Point();
+            point2.X = coords.x2;
+            point2.Y = coords.y2;
+            points[c + 1] = point2;
+            base.g.DrawLine(base.pen, coords.x1, coords.y1, coords.x2, coords.y2);
+            return false;
         }
+
+        public bool DrawLineCityEnd(int? w)
+        {
+            if (w != null)
+            {
+                if (coords.x2 > w - 90 && houses >= 9)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    public class PaintArea:CoreDraw
+    {
+
     }
 }
