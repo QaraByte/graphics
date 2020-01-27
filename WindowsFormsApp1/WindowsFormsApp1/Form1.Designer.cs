@@ -39,6 +39,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.btnWindows = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -108,7 +109,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(127, 39);
             this.button2.TabIndex = 4;
-            this.button2.Text = "Разное";
+            this.button2.Text = "Закрасить дома";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -123,11 +124,23 @@
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // btnWindows
+            // 
+            this.btnWindows.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWindows.Location = new System.Drawing.Point(278, 336);
+            this.btnWindows.Name = "btnWindows";
+            this.btnWindows.Size = new System.Drawing.Size(127, 39);
+            this.btnWindows.TabIndex = 6;
+            this.btnWindows.Text = "Нарисовать окна";
+            this.btnWindows.UseVisualStyleBackColor = true;
+            this.btnWindows.Click += new System.EventHandler(this.btnWindows_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(916, 408);
+            this.Controls.Add(this.btnWindows);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.txtInfo);
@@ -159,6 +172,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Button btnWindows;
     }
 }
 

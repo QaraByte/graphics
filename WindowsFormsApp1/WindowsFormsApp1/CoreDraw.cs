@@ -41,7 +41,7 @@ namespace WindowsFormsApp1
         }
 
         public string direction = "right";
-        public int BETWEEN = 10;
+        public int BETWEEN = 12;
         public int houses = 0;
         Random rnd = new Random();
         public Coords coords;

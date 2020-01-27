@@ -13,7 +13,7 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         Bitmap b;
-        
+
         //Image image;
         //Rectangle rect;
 
@@ -36,7 +36,7 @@ namespace WindowsFormsApp1
             timer1.Enabled = true;
             button1.Enabled = false;
         }
-        
+
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             //g = e.Graphics;
@@ -98,17 +98,69 @@ namespace WindowsFormsApp1
                 brush = new SolidBrush(colorDialog1.Color);
             }
             Pen pen = new Pen(brush);
-            
+            string direction = "right";
+            string RIGHT = "right";
+            string UP = "up";
+
             if (outlinecity != null)
             {
                 //Выбираем, чтобы X и Y не равны нулю
                 Point[] points2 = outlinecity.points.Where(t => t.X != 0 || t.Y != 0).ToArray();
+                //points2.
                 if (points2.Length > 0)
                 {
                     Point[] points = new Point[points2.Length + 2];
                     for (int j = 0; j < points2.Length; j++)
                     {
-                        points[j] = points2[j];
+                        if (j < points2.Length - 1)
+                        {
+                            if (points2[j].Y == points2[j + 1].Y)
+                            {
+                                if (direction == UP)
+                                {
+                                    points[j].X = points2[j].X + 1;
+                                    points[j].Y = points2[j].Y + 1;
+                                    direction = RIGHT;
+                                }
+                                else
+                                {
+                                    points[j].X = points2[j].X;
+                                    points[j].Y = points2[j].Y + 1;
+                                    direction = RIGHT;
+                                }
+                            }
+                            else
+                            {
+                                if (points2[j].Y > points2[j + 1].Y)
+                                {
+                                    points[j].X = points2[j].X + 1;
+                                    points[j].Y = points2[j].Y + 1;
+                                    direction = UP;
+                                    Point[] p = new Point[4];
+                                    p[0].X = points[j].X + 5;
+                                    p[0].Y = points[j].Y + 5;
+                                    p[1].X = points[j].X + 10;
+                                    p[1].Y = points[j].Y + 5;
+                                    p[2].X = points[j].X + 10;
+                                    p[2].Y = points[j].Y + 8;
+                                    p[3].X = points[j].X + 5;
+                                    p[3].Y = points[j].Y + 8;
+                                    outlinecity.g.DrawPolygon(pen, p);
+                                    pictureBox1.Image = b;
+                                }
+                                else
+                                {
+                                    points[j].X = points2[j].X;
+                                    points[j].Y = points2[j].Y + 1;
+                                    direction = "none";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            points[j].X = points2[j].X;
+                            points[j].Y = points2[j].Y + 1;
+                        }
                     }
 
                     //Заполняем две крайние точки, которые равны ширине и высоте Bitmap
@@ -138,6 +190,47 @@ namespace WindowsFormsApp1
             outlinecity.g.Clear(Color.White);
             pictureBox1.Refresh();
             txtInfo.Text = "";
+        }
+
+        private void btnWindows_Click(object sender, EventArgs e)
+        {
+            Pen pen = new Pen(Color.Blue);
+            Brush brush = new SolidBrush(Color.Yellow);
+            bool up = false;
+            Point[] points2 = outlinecity.points.Where(t => t.X != 0 || t.Y != 0).ToArray();
+            if (points2.Length > 0)
+            {
+                for (int j = 0; j < points2.Length; j++)
+                {
+                    if (points2[j].X != 0 || points2[j].Y != 0)
+                        if (j < points2.Length - 1)
+                        {
+                            if (points2[j].Y == points2[j + 1].Y)
+                            {
+                                if (up)
+                                {
+                                    Point[] p = new Point[4];
+                                    p[0].X = points2[j].X + 5;
+                                    p[0].Y = points2[j].Y + 5;
+                                    p[1].X = points2[j].X + 15;
+                                    p[1].Y = points2[j].Y + 5;
+                                    p[2].X = points2[j].X + 15;
+                                    p[2].Y = points2[j].Y + 10;
+                                    p[3].X = points2[j].X + 5;
+                                    p[3].Y = points2[j].Y + 10;
+                                    outlinecity.g.DrawPolygon(pen, p);
+                                    paintCity.g.FillPolygon(brush, p);
+                                    pictureBox1.Image = b;
+                                }
+                                up = false;
+                            }
+                            if (points2[j].Y > points2[j + 1].Y)
+                            {
+                                up = true;
+                            }
+                        }
+                }
+            }
         }
     }
 }
