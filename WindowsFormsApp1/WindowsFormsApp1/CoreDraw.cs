@@ -10,6 +10,7 @@ namespace WindowsFormsApp1
     public class CoreDraw
     {
         public Pen pen;
+        public Brush brush;
         public Graphics g;
     }
 
@@ -164,6 +165,143 @@ namespace WindowsFormsApp1
 
     public class PaintArea:CoreDraw
     {
+        //Конструктор класса
+        public PaintArea()
+        {
+            brush = new SolidBrush(Color.DarkBlue);
+            pen = new Pen(brush);
+        }
 
+        string direction = "right";
+        string RIGHT = "right";
+        string UP = "up";
+
+        public Point[] PaintCity(Point[] p2, int w, int h)
+        {
+            Point[] points = new Point[p2.Length + 2];
+            for (int j = 0; j < p2.Length; j++)
+            {
+                if (j < p2.Length - 1)
+                {
+                    if (p2[j].Y == p2[j + 1].Y)
+                    {
+                        if (direction == UP)
+                        {
+                            points[j].X = p2[j].X + 1;
+                            points[j].Y = p2[j].Y + 1;
+                            direction = RIGHT;
+                        }
+                        else
+                        {
+                            points[j].X = p2[j].X;
+                            points[j].Y = p2[j].Y + 1;
+                            direction = RIGHT;
+                        }
+                    }
+                    else
+                    {
+                        if (p2[j].Y > p2[j + 1].Y)
+                        {
+                            points[j].X = p2[j].X + 1;
+                            points[j].Y = p2[j].Y + 1;
+                            direction = UP;
+                        }
+                        else
+                        {
+                            points[j].X = p2[j].X;
+                            points[j].Y = p2[j].Y + 1;
+                            direction = "none";
+                        }
+                    }
+                }
+                else
+                {
+                    points[j].X = p2[j].X;
+                    points[j].Y = p2[j].Y + 1;
+                }
+            }
+
+            //Заполняем две крайние точки, которые равны ширине и высоте Bitmap
+            points[points.Length - 2].X = w;
+            points[points.Length - 2].Y = h;
+            points[points.Length - 1].X = 0;
+            points[points.Length - 1].Y = h;
+            return points;
+        }
+
+        public int DrawWindows(Point[] p2, int pos)
+        {
+            brush = new SolidBrush(Color.Yellow);
+            bool up = false;
+            for (int j = pos; j < p2.Length; j++)
+            {
+                if (p2[j].X != 0 || p2[j].Y != 0)
+                    if (j < p2.Length - 1)
+                    {
+                        if (p2[j].Y == p2[j + 1].Y)
+                        {
+                            if (up)
+                            {
+                                //Длина крыши минус расстояние по бокам по 5 пикселей
+                                double distance = p2[j + 1].X - p2[j].X - 10;
+                                //Количество домов=длина крыши/15, 15=окно+расстояние до границы слева
+                                int windows = Convert.ToInt32(Math.Floor(distance / 15));
+                                //Определяем координаты для домов
+                                Point[] p = new Point[windows * 4];
+                                int to_left = 5;
+                                int to_end = 10;
+                                for (int i = 1; i <= windows; i++)
+                                {
+                                    switch (i)
+                                    {
+                                        //Первый дом
+                                        case 1:
+                                            p[0].X = p2[j].X + to_left;
+                                            p[0].Y = p2[j].Y + to_left;
+                                            p[1].X = p2[j].X + to_left + to_end;
+                                            p[1].Y = p2[j].Y + to_left;
+                                            p[2].X = p2[j].X + to_left + to_end;
+                                            p[2].Y = p2[j].Y + to_end;
+                                            p[3].X = p2[j].X + to_left;
+                                            p[3].Y = p2[j].Y + to_end;
+                                            break;
+                                        //Второй дом
+                                        case 2:
+                                            p[4].X = p2[j].X + to_left + to_end + to_left;
+                                            p[4].Y = p2[j].Y + to_left;
+                                            p[5].X = p2[j].X + i * (to_left + to_end);
+                                            p[5].Y = p2[j].Y + to_left;
+                                            p[6].X = p2[j].X + i * (to_left + to_end);
+                                            p[6].Y = p2[j].Y + to_end;
+                                            p[7].X = p2[j].X + to_left + to_end + to_left;
+                                            p[7].Y = p2[j].Y + to_end;
+                                            break;
+                                        //Третий дом
+                                        case 3:
+                                            p[8].X = p2[j].X + (i - 1) * (to_left + to_end) + to_left;
+                                            p[8].Y = p2[j].Y + to_left;
+                                            p[9].X = p2[j].X + i * (to_left + to_end);
+                                            p[9].Y = p2[j].Y + to_left;
+                                            p[10].X = p2[j].X + i * (to_left + to_end);
+                                            p[10].Y = p2[j].Y + to_end;
+                                            p[11].X = p2[j].X + (i - 1) * (to_left + to_end) + to_end;
+                                            p[11].Y = p2[j].Y + to_end;
+                                            break;
+                                    }
+                                }
+                                base.g.DrawPolygon(pen, p);
+                                base.g.FillPolygon(brush, p);
+                                return j + 1;
+                            }
+                            up = false;
+                        }
+                        if (p2[j].Y > p2[j + 1].Y)
+                        {
+                            up = true;
+                        }
+                    }
+            }
+            return p2.Length;
+        }
     }
 }
