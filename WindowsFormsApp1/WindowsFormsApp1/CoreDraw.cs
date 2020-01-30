@@ -229,6 +229,8 @@ namespace WindowsFormsApp1
             return points;
         }
 
+        public Point[] windowsPoints;
+
         public int DrawWindows(Point[] p2, int pos)
         {
             brush = new SolidBrush(Color.Yellow);
@@ -243,54 +245,100 @@ namespace WindowsFormsApp1
                             if (up)
                             {
                                 //Длина крыши минус расстояние по бокам по 5 пикселей
-                                double distance = p2[j + 1].X - p2[j].X - 10;
+                                double distanceH = p2[j + 1].X - p2[j].X - 10;
                                 //Количество домов=длина крыши/15, 15=окно+расстояние до границы слева
-                                int windows = Convert.ToInt32(Math.Floor(distance / 15));
-                                //Определяем координаты для домов
-                                Point[] p = new Point[windows * 4];
+                                int windowsHorizontal = Convert.ToInt32(Math.Floor(distanceH / 15));
+                                //Высота дома минус расстояние сверху и снизу по 5 пикселей
+                                double distanceV = p2[j - 1].Y - p2[j].Y - 10;
+                                int windowsVerticital = Convert.ToInt32(Math.Floor(distanceV / 10));
                                 int to_left = 5;
                                 int to_end = 10;
-                                for (int i = 1; i <= windows; i++)
+
+                                for (int i = 1; i <= windowsHorizontal; i++)
                                 {
+                                    //Первый ряд
+                                    //Определяем координаты для окон
+                                    windowsPoints = new Point[4];
                                     switch (i)
                                     {
-                                        //Первый дом
+                                        //Первое окно
                                         case 1:
-                                            p[0].X = p2[j].X + to_left;
-                                            p[0].Y = p2[j].Y + to_left;
-                                            p[1].X = p2[j].X + to_left + to_end;
-                                            p[1].Y = p2[j].Y + to_left;
-                                            p[2].X = p2[j].X + to_left + to_end;
-                                            p[2].Y = p2[j].Y + to_end;
-                                            p[3].X = p2[j].X + to_left;
-                                            p[3].Y = p2[j].Y + to_end;
+                                            windowsPoints[0].X = p2[j].X + to_left;
+                                            windowsPoints[0].Y = p2[j].Y + to_left;
+                                            windowsPoints[1].X = p2[j].X + to_left + to_end;
+                                            windowsPoints[1].Y = p2[j].Y + to_left;
+                                            windowsPoints[2].X = p2[j].X + to_left + to_end;
+                                            windowsPoints[2].Y = p2[j].Y + to_end;
+                                            windowsPoints[3].X = p2[j].X + to_left;
+                                            windowsPoints[3].Y = p2[j].Y + to_end;
+                                            base.g.DrawPolygon(pen, windowsPoints);
+                                            base.g.FillPolygon(brush, windowsPoints);
                                             break;
-                                        //Второй дом
+                                        //Второе окно
                                         case 2:
-                                            p[4].X = p2[j].X + to_left + to_end + to_left;
-                                            p[4].Y = p2[j].Y + to_left;
-                                            p[5].X = p2[j].X + i * (to_left + to_end);
-                                            p[5].Y = p2[j].Y + to_left;
-                                            p[6].X = p2[j].X + i * (to_left + to_end);
-                                            p[6].Y = p2[j].Y + to_end;
-                                            p[7].X = p2[j].X + to_left + to_end + to_left;
-                                            p[7].Y = p2[j].Y + to_end;
+                                            windowsPoints[0].X = p2[j].X + to_left + to_end + to_left;
+                                            windowsPoints[0].Y = p2[j].Y + to_left;
+                                            windowsPoints[1].X = p2[j].X + i * (to_left + to_end);
+                                            windowsPoints[1].Y = p2[j].Y + to_left;
+                                            windowsPoints[2].X = p2[j].X + i * (to_left + to_end);
+                                            windowsPoints[2].Y = p2[j].Y + to_end;
+                                            windowsPoints[3].X = p2[j].X + to_left + to_end + to_left;
+                                            windowsPoints[3].Y = p2[j].Y + to_end;
+                                            base.g.DrawPolygon(pen, windowsPoints);
+                                            base.g.FillPolygon(brush, windowsPoints);
                                             break;
-                                        //Третий дом
+                                        //Третье окно
                                         case 3:
-                                            p[8].X = p2[j].X + (i - 1) * (to_left + to_end) + to_left;
-                                            p[8].Y = p2[j].Y + to_left;
-                                            p[9].X = p2[j].X + i * (to_left + to_end);
-                                            p[9].Y = p2[j].Y + to_left;
-                                            p[10].X = p2[j].X + i * (to_left + to_end);
-                                            p[10].Y = p2[j].Y + to_end;
-                                            p[11].X = p2[j].X + (i - 1) * (to_left + to_end) + to_end;
-                                            p[11].Y = p2[j].Y + to_end;
+                                            windowsPoints[0].X = p2[j].X + (i - 1) * (to_left + to_end) + to_left;
+                                            windowsPoints[0].Y = p2[j].Y + to_left;
+                                            windowsPoints[1].X = p2[j].X + i * (to_left + to_end);
+                                            windowsPoints[1].Y = p2[j].Y + to_left;
+                                            windowsPoints[2].X = p2[j].X + i * (to_left + to_end);
+                                            windowsPoints[2].Y = p2[j].Y + to_end;
+                                            windowsPoints[3].X = p2[j].X + (i - 1) * (to_left + to_end) + to_left;
+                                            windowsPoints[3].Y = p2[j].Y + to_end;
+                                            base.g.DrawPolygon(pen, windowsPoints);
+                                            base.g.FillPolygon(brush, windowsPoints);
                                             break;
                                     }
                                 }
-                                base.g.DrawPolygon(pen, p);
-                                base.g.FillPolygon(brush, p);
+
+                                int to_top_window = 5;
+                                int to_bottom_window = 10;
+
+                                for (int k = 2; k <= windowsVerticital; k++)
+                                {
+                                    //Определяем координаты для окон
+                                    windowsPoints = new Point[4];
+                                    switch (k)
+                                    {
+                                        //Второй ряд
+                                        case 2:
+                                            windowsPoints[0].X = p2[j].X + to_left;
+                                            windowsPoints[0].Y = p2[j].Y + to_bottom_window + to_top_window;
+                                            windowsPoints[1].X = p2[j].X + to_left + to_end;
+                                            windowsPoints[1].Y = p2[j].Y + to_bottom_window + to_top_window;
+                                            windowsPoints[2].X = p2[j].X + to_left + to_end;
+                                            windowsPoints[2].Y = p2[j].Y + to_bottom_window + to_bottom_window;
+                                            windowsPoints[3].X = p2[j].X + to_left;
+                                            windowsPoints[3].Y = p2[j].Y + to_bottom_window + to_bottom_window;
+                                            base.g.DrawPolygon(pen, windowsPoints);
+                                            base.g.FillPolygon(brush, windowsPoints);
+                                            break;
+                                        case 3:
+                                            windowsPoints[0].X = p2[j].X + to_left + to_end + to_left;
+                                            windowsPoints[0].Y = p2[j].Y + to_bottom_window + to_top_window;
+                                            windowsPoints[1].X = p2[j].X + k * (to_left + to_end);
+                                            windowsPoints[1].Y = p2[j].Y + to_bottom_window + to_top_window;
+                                            windowsPoints[2].X = p2[j].X + k * (to_left + to_end);
+                                            windowsPoints[2].Y = p2[j].Y + to_bottom_window + to_bottom_window;
+                                            windowsPoints[3].X = p2[j].X + to_left + to_end + to_left;
+                                            windowsPoints[3].Y = p2[j].Y + to_bottom_window + to_bottom_window;
+                                            base.g.DrawPolygon(pen, windowsPoints);
+                                            base.g.FillPolygon(brush, windowsPoints);
+                                            break;
+                                    }
+                                }
                                 return j + 1;
                             }
                             up = false;

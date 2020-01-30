@@ -128,11 +128,17 @@ namespace WindowsFormsApp1
             if (points2.Length > 0)
             {
                 int position = 0;
-                for (int i = 0; i < outlinecity.houses; i++)
+                for (int i = 1; i < outlinecity.houses + 1; i++)
                 {
                     position = city.DrawWindows(points2, position);
                     if (position < points2.Length)
                         pictureBox1.Image = b;
+
+                    txtInfo.Text += "Координаты окон дома " + i + ":" + Environment.NewLine;
+                    for (int j = 0; j < city.windowsPoints.Length; j++)
+                    {
+                        txtInfo.Text += "[X=" + city.windowsPoints[j].X + ";Y=" + city.windowsPoints[j].Y + "]" + Environment.NewLine;
+                    }
                 }
             }
         }
