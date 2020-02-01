@@ -1,0 +1,95 @@
+//Длина крыши минус расстояние по бокам по 5 пикселей
+                                double distanceH = p2[j + 1].X - p2[j].X - 10;
+                                //Количество домов=длина крыши/15, 15=окно+расстояние до границы слева
+                                int windowsHorizontal = Convert.ToInt32(Math.Floor(distanceH / 15));
+                                //Высота дома минус расстояние сверху и снизу по 5 пикселей
+                                double distanceV = p2[j - 1].Y - p2[j].Y - 10;
+                                int windowsVerticital = Convert.ToInt32(Math.Floor(distanceV / 10));
+                                int to_left = 5;
+                                int to_end = 10;
+
+                                for (int i = 1; i <= windowsHorizontal; i++)
+                                {
+                                    //Первый ряд
+                                    //Определяем координаты для окон
+                                    windowsPoints = new Point[4];
+                                    switch (i)
+                                    {
+                                        //Первое окно
+                                        case 1:
+                                            windowsPoints[0].X = p2[j].X + to_left;
+                                            windowsPoints[0].Y = p2[j].Y + to_left;
+                                            windowsPoints[1].X = p2[j].X + to_left + to_end;
+                                            windowsPoints[1].Y = p2[j].Y + to_left;
+                                            windowsPoints[2].X = p2[j].X + to_left + to_end;
+                                            windowsPoints[2].Y = p2[j].Y + to_end;
+                                            windowsPoints[3].X = p2[j].X + to_left;
+                                            windowsPoints[3].Y = p2[j].Y + to_end;
+                                            base.g.DrawPolygon(pen, windowsPoints);
+                                            base.g.FillPolygon(brush, windowsPoints);
+                                            break;
+                                        //Второе окно
+                                        case 2:
+                                            windowsPoints[0].X = p2[j].X + to_left + to_end + to_left;
+                                            windowsPoints[0].Y = p2[j].Y + to_left;
+                                            windowsPoints[1].X = p2[j].X + i * (to_left + to_end);
+                                            windowsPoints[1].Y = p2[j].Y + to_left;
+                                            windowsPoints[2].X = p2[j].X + i * (to_left + to_end);
+                                            windowsPoints[2].Y = p2[j].Y + to_end;
+                                            windowsPoints[3].X = p2[j].X + to_left + to_end + to_left;
+                                            windowsPoints[3].Y = p2[j].Y + to_end;
+                                            base.g.DrawPolygon(pen, windowsPoints);
+                                            base.g.FillPolygon(brush, windowsPoints);
+                                            break;
+                                        //Третье окно
+                                        case 3:
+                                            windowsPoints[0].X = p2[j].X + (i - 1) * (to_left + to_end) + to_left;
+                                            windowsPoints[0].Y = p2[j].Y + to_left;
+                                            windowsPoints[1].X = p2[j].X + i * (to_left + to_end);
+                                            windowsPoints[1].Y = p2[j].Y + to_left;
+                                            windowsPoints[2].X = p2[j].X + i * (to_left + to_end);
+                                            windowsPoints[2].Y = p2[j].Y + to_end;
+                                            windowsPoints[3].X = p2[j].X + (i - 1) * (to_left + to_end) + to_left;
+                                            windowsPoints[3].Y = p2[j].Y + to_end;
+                                            base.g.DrawPolygon(pen, windowsPoints);
+                                            base.g.FillPolygon(brush, windowsPoints);
+                                            break;
+                                    }
+                                }
+
+                                int to_top_window = 5;
+                                int to_bottom_window = 10;
+
+                                for (int k = 2; k <= windowsVerticital; k++)
+                                {
+                                    //Определяем координаты для окон
+                                    windowsPoints = new Point[4];
+                                    switch (k)
+                                    {
+                                        //Второй ряд
+                                        case 2:
+                                            windowsPoints[0].X = p2[j].X + to_left;
+                                            windowsPoints[0].Y = p2[j].Y + to_bottom_window + to_top_window;
+                                            windowsPoints[1].X = p2[j].X + to_left + to_end;
+                                            windowsPoints[1].Y = p2[j].Y + to_bottom_window + to_top_window;
+                                            windowsPoints[2].X = p2[j].X + to_left + to_end;
+                                            windowsPoints[2].Y = p2[j].Y + to_bottom_window + to_bottom_window;
+                                            windowsPoints[3].X = p2[j].X + to_left;
+                                            windowsPoints[3].Y = p2[j].Y + to_bottom_window + to_bottom_window;
+                                            base.g.DrawPolygon(pen, windowsPoints);
+                                            base.g.FillPolygon(brush, windowsPoints);
+                                            break;
+                                        case 3:
+                                            windowsPoints[0].X = p2[j].X + to_left + to_end + to_left;
+                                            windowsPoints[0].Y = p2[j].Y + to_bottom_window + to_top_window;
+                                            windowsPoints[1].X = p2[j].X + k * (to_left + to_end);
+                                            windowsPoints[1].Y = p2[j].Y + to_bottom_window + to_top_window;
+                                            windowsPoints[2].X = p2[j].X + k * (to_left + to_end);
+                                            windowsPoints[2].Y = p2[j].Y + to_bottom_window + to_bottom_window;
+                                            windowsPoints[3].X = p2[j].X + to_left + to_end + to_left;
+                                            windowsPoints[3].Y = p2[j].Y + to_bottom_window + to_bottom_window;
+                                            base.g.DrawPolygon(pen, windowsPoints);
+                                            base.g.FillPolygon(brush, windowsPoints);
+                                            break;
+                                    }
+                                }

@@ -134,11 +134,11 @@ namespace WindowsFormsApp1
                     if (position < points2.Length)
                         pictureBox1.Image = b;
 
-                    txtInfo.Text += "Координаты окон дома " + i + ":" + Environment.NewLine;
-                    for (int j = 0; j < city.windowsPoints.Length; j++)
-                    {
-                        txtInfo.Text += "[X=" + city.windowsPoints[j].X + ";Y=" + city.windowsPoints[j].Y + "]" + Environment.NewLine;
-                    }
+                    //txtInfo.Text += "Координаты окон дома " + i + ":" + Environment.NewLine;
+                    //for (int j = 0; j < city.windowsPoints.Length; j++)
+                    //{
+                    //    txtInfo.Text += "[X=" + city.windowsPoints[j].X + ";Y=" + city.windowsPoints[j].Y + "]" + Environment.NewLine;
+                    //}
                 }
             }
         }

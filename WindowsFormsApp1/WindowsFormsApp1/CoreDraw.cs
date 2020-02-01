@@ -42,7 +42,7 @@ namespace WindowsFormsApp1
         }
 
         public string direction = "right";
-        public int BETWEEN = 12;
+        public int BETWEEN = 11;
         public int houses = 0;
         Random rnd = new Random();
         public Coords coords;
@@ -244,101 +244,7 @@ namespace WindowsFormsApp1
                         {
                             if (up)
                             {
-                                //Длина крыши минус расстояние по бокам по 5 пикселей
-                                double distanceH = p2[j + 1].X - p2[j].X - 10;
-                                //Количество домов=длина крыши/15, 15=окно+расстояние до границы слева
-                                int windowsHorizontal = Convert.ToInt32(Math.Floor(distanceH / 15));
-                                //Высота дома минус расстояние сверху и снизу по 5 пикселей
-                                double distanceV = p2[j - 1].Y - p2[j].Y - 10;
-                                int windowsVerticital = Convert.ToInt32(Math.Floor(distanceV / 10));
-                                int to_left = 5;
-                                int to_end = 10;
-
-                                for (int i = 1; i <= windowsHorizontal; i++)
-                                {
-                                    //Первый ряд
-                                    //Определяем координаты для окон
-                                    windowsPoints = new Point[4];
-                                    switch (i)
-                                    {
-                                        //Первое окно
-                                        case 1:
-                                            windowsPoints[0].X = p2[j].X + to_left;
-                                            windowsPoints[0].Y = p2[j].Y + to_left;
-                                            windowsPoints[1].X = p2[j].X + to_left + to_end;
-                                            windowsPoints[1].Y = p2[j].Y + to_left;
-                                            windowsPoints[2].X = p2[j].X + to_left + to_end;
-                                            windowsPoints[2].Y = p2[j].Y + to_end;
-                                            windowsPoints[3].X = p2[j].X + to_left;
-                                            windowsPoints[3].Y = p2[j].Y + to_end;
-                                            base.g.DrawPolygon(pen, windowsPoints);
-                                            base.g.FillPolygon(brush, windowsPoints);
-                                            break;
-                                        //Второе окно
-                                        case 2:
-                                            windowsPoints[0].X = p2[j].X + to_left + to_end + to_left;
-                                            windowsPoints[0].Y = p2[j].Y + to_left;
-                                            windowsPoints[1].X = p2[j].X + i * (to_left + to_end);
-                                            windowsPoints[1].Y = p2[j].Y + to_left;
-                                            windowsPoints[2].X = p2[j].X + i * (to_left + to_end);
-                                            windowsPoints[2].Y = p2[j].Y + to_end;
-                                            windowsPoints[3].X = p2[j].X + to_left + to_end + to_left;
-                                            windowsPoints[3].Y = p2[j].Y + to_end;
-                                            base.g.DrawPolygon(pen, windowsPoints);
-                                            base.g.FillPolygon(brush, windowsPoints);
-                                            break;
-                                        //Третье окно
-                                        case 3:
-                                            windowsPoints[0].X = p2[j].X + (i - 1) * (to_left + to_end) + to_left;
-                                            windowsPoints[0].Y = p2[j].Y + to_left;
-                                            windowsPoints[1].X = p2[j].X + i * (to_left + to_end);
-                                            windowsPoints[1].Y = p2[j].Y + to_left;
-                                            windowsPoints[2].X = p2[j].X + i * (to_left + to_end);
-                                            windowsPoints[2].Y = p2[j].Y + to_end;
-                                            windowsPoints[3].X = p2[j].X + (i - 1) * (to_left + to_end) + to_left;
-                                            windowsPoints[3].Y = p2[j].Y + to_end;
-                                            base.g.DrawPolygon(pen, windowsPoints);
-                                            base.g.FillPolygon(brush, windowsPoints);
-                                            break;
-                                    }
-                                }
-
-                                int to_top_window = 5;
-                                int to_bottom_window = 10;
-
-                                for (int k = 2; k <= windowsVerticital; k++)
-                                {
-                                    //Определяем координаты для окон
-                                    windowsPoints = new Point[4];
-                                    switch (k)
-                                    {
-                                        //Второй ряд
-                                        case 2:
-                                            windowsPoints[0].X = p2[j].X + to_left;
-                                            windowsPoints[0].Y = p2[j].Y + to_bottom_window + to_top_window;
-                                            windowsPoints[1].X = p2[j].X + to_left + to_end;
-                                            windowsPoints[1].Y = p2[j].Y + to_bottom_window + to_top_window;
-                                            windowsPoints[2].X = p2[j].X + to_left + to_end;
-                                            windowsPoints[2].Y = p2[j].Y + to_bottom_window + to_bottom_window;
-                                            windowsPoints[3].X = p2[j].X + to_left;
-                                            windowsPoints[3].Y = p2[j].Y + to_bottom_window + to_bottom_window;
-                                            base.g.DrawPolygon(pen, windowsPoints);
-                                            base.g.FillPolygon(brush, windowsPoints);
-                                            break;
-                                        case 3:
-                                            windowsPoints[0].X = p2[j].X + to_left + to_end + to_left;
-                                            windowsPoints[0].Y = p2[j].Y + to_bottom_window + to_top_window;
-                                            windowsPoints[1].X = p2[j].X + k * (to_left + to_end);
-                                            windowsPoints[1].Y = p2[j].Y + to_bottom_window + to_top_window;
-                                            windowsPoints[2].X = p2[j].X + k * (to_left + to_end);
-                                            windowsPoints[2].Y = p2[j].Y + to_bottom_window + to_bottom_window;
-                                            windowsPoints[3].X = p2[j].X + to_left + to_end + to_left;
-                                            windowsPoints[3].Y = p2[j].Y + to_bottom_window + to_bottom_window;
-                                            base.g.DrawPolygon(pen, windowsPoints);
-                                            base.g.FillPolygon(brush, windowsPoints);
-                                            break;
-                                    }
-                                }
+                                CalculateWindows(p2[j].X, p2[j].Y, p2[j + 1].X, p2[j - 1].Y);
                                 return j + 1;
                             }
                             up = false;
@@ -350,6 +256,51 @@ namespace WindowsFormsApp1
                     }
             }
             return p2.Length;
+        }
+
+        public void CalculateWindows(int x1, int y1, int x2, int y2, bool end = false)
+        {
+            if (!end)
+            {
+                //Высота дома
+                int height = y2 - y1;
+                //Ширина дома
+                int width = x2 - x1;
+                //Отнимаем от краев окон 10 пикселей
+                int windows_and_intervals = width - 10;
+                //Высота окна и промежуток между окнами
+                int hW = 5;
+                //Ширина окна
+                int wW = 10;
+                //Количество окон
+                int windowsCount = Convert.ToInt32(Math.Floor((decimal)windows_and_intervals / (hW + wW)));
+
+                //Количество промежутков между окнами
+                int forWindows = windows_and_intervals - (windowsCount - 1) * hW;
+                if (windowsCount != 0)
+                {
+                    int windowWidth = Convert.ToInt32(Math.Floor((decimal)forWindows / windowsCount));
+                    Point[] p = new Point[4];
+
+                    p[0].X = x1 + hW;
+                    p[0].Y = y1 + hW;
+                    p[1].X = x1 + hW + windowWidth;
+                    p[1].Y = y1 + hW;
+                    p[2].X = x1 + hW + windowWidth;
+                    p[2].Y = y1 + hW + hW;
+                    p[3].X = x1 + hW;
+                    p[3].Y = y1 + hW + hW;
+                    g.DrawPolygon(pen, p);
+                    g.FillPolygon(brush, p);
+                    windowsCount--;
+                    if (windowsCount == 0)
+                        return;
+                    else
+                        CalculateWindows(p[2].X, y1, x2, y2);
+                }
+                else
+                    return;
+            }
         }
     }
 }
