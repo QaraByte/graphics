@@ -163,12 +163,12 @@ namespace WindowsFormsApp1
         }
     }
 
-    public class PaintArea:CoreDraw
+    public class PaintArea : CoreDraw
     {
         //Конструктор класса
         public PaintArea()
         {
-            brush = new SolidBrush(Color.DarkBlue);
+            brush = new SolidBrush(Color.FromArgb(55, 82, 99));
             pen = new Pen(brush);
         }
 
@@ -229,11 +229,22 @@ namespace WindowsFormsApp1
             return points;
         }
 
-        public Point[] windowsPoints;
+        public List<String> windowsPoints = new List<String>();
 
-        public int DrawWindows(Point[] p2, int pos)
+        public int DrawWindows(Point[] p2, int pos, string color)
         {
-            brush = new SolidBrush(Color.Yellow);
+            switch (color)
+            {
+                case "Желтый": brush = new SolidBrush(Color.Yellow); break;
+                case "Зеленый": brush = new SolidBrush(Color.Green); break;
+                case "Красный": brush = new SolidBrush(Color.Red); break;
+                case "Черный": brush = new SolidBrush(Color.Black); break;
+                case "Белый": brush = new SolidBrush(Color.White); break;
+                case "Фиолетовый": brush = new SolidBrush(Color.Violet); break;
+                case "Розовый": brush = new SolidBrush(Color.Pink); break;
+                default: brush = new SolidBrush(Color.Yellow); break;
+            }
+
             bool up = false;
             for (int j = pos; j < p2.Length; j++)
             {
@@ -260,28 +271,33 @@ namespace WindowsFormsApp1
 
         public void CalculateWindows(int x1, int y1, int x2, int y2, bool end = false)
         {
-            if (!end)
+            //Высота дома
+            int height = y2 - y1;
+            //Ширина дома
+            int width = x2 - x1;
+            //Отнимаем от краев дома 10 пикселей
+            int windows_and_intervalsW = width - 10;
+            //Отнимаем от краев дома 10 пикселей
+            int windows_and_intervalsH = height - 10;
+            //Высота окна и промежуток между окнами
+            int hW = 5;
+            //Ширина окна
+            int wW = 10;
+            //Количество окон по горизонтали
+            int windowsCountH = Convert.ToInt32(Math.Floor((decimal)windows_and_intervalsW / (hW + wW)));
+            //Количество окон по вертикали
+            int windowsCountV = Convert.ToInt32(Math.Floor((decimal)windows_and_intervalsH / (hW + hW)));
+            //Количество промежутков между окнами
+            int forWindows = windows_and_intervalsW - (windowsCountH - 1) * hW;
+            //Ширина окна
+            int windowWidth = Convert.ToInt32(Math.Floor((decimal)forWindows / windowsCountH));
+            int x = x1;
+
+            for (int j = 0; j < windowsCountV; j++)
             {
-                //Высота дома
-                int height = y2 - y1;
-                //Ширина дома
-                int width = x2 - x1;
-                //Отнимаем от краев окон 10 пикселей
-                int windows_and_intervals = width - 10;
-                //Высота окна и промежуток между окнами
-                int hW = 5;
-                //Ширина окна
-                int wW = 10;
-                //Количество окон
-                int windowsCount = Convert.ToInt32(Math.Floor((decimal)windows_and_intervals / (hW + wW)));
-
-                //Количество промежутков между окнами
-                int forWindows = windows_and_intervals - (windowsCount - 1) * hW;
-                if (windowsCount != 0)
+                for (int i = 0; i < windowsCountH; i++)
                 {
-                    int windowWidth = Convert.ToInt32(Math.Floor((decimal)forWindows / windowsCount));
                     Point[] p = new Point[4];
-
                     p[0].X = x1 + hW;
                     p[0].Y = y1 + hW;
                     p[1].X = x1 + hW + windowWidth;
@@ -292,15 +308,78 @@ namespace WindowsFormsApp1
                     p[3].Y = y1 + hW + hW;
                     g.DrawPolygon(pen, p);
                     g.FillPolygon(brush, p);
-                    windowsCount--;
-                    if (windowsCount == 0)
-                        return;
-                    else
-                        CalculateWindows(p[2].X, y1, x2, y2);
+                    x1 = x1 + hW + windowWidth;
+                    //windowsPoints.Add("[0]=[" + p[0].X + ";" + p[0].Y + "]");
+                    //windowsPoints.Add("[1]=[" + p[1].X + ";" + p[1].Y + "]");
+                    //windowsPoints.Add("[2]=[" + p[2].X + ";" + p[2].Y + "]");
+                    //windowsPoints.Add("[3]=[" + p[3].X + ";" + p[3].Y + "]");
                 }
-                else
-                    return;
+                //Следующий ряд окон
+                y1 = y1 + wW;
+                x1 = x;
             }
+        }
+    }
+
+    public class Moon : CoreDraw
+    {
+        public Moon()
+        {
+            pen = new Pen(Color.FromArgb(246, 238, 236));
+            brush = new SolidBrush(Color.FromArgb(246, 238, 236));
+        }
+
+        public Point[] point;
+
+        public void DrawMoon()
+        {
+            point = new Point[1];
+            point[0].X = 520;
+            point[0].Y = 50;
+            int width = 30;
+            int height = 30;
+            base.g.DrawEllipse(pen, point[0].X, point[0].Y, width, height);
+            base.g.FillEllipse(brush, point[0].X, point[0].Y, width, height);
+            this.DrawMoonSpots(point, width, height);
+        }
+
+        private void DrawMoonSpots(Point[] p, int w, int h)
+        {
+            pen = new Pen(Color.FromArgb(177, 177, 177));
+            brush = new SolidBrush(Color.FromArgb(177, 177, 177));
+            Point[] spot1 = new Point[1];
+            spot1[0].X = p[0].X + 3;
+            spot1[0].Y = p[0].Y + 11;
+            base.g.DrawEllipse(pen, spot1[0].X, spot1[0].Y, 3, 4);
+            base.g.FillEllipse(brush, spot1[0].X, spot1[0].Y, 4, 4);
+            Point[] spot2 = new Point[1];
+            spot2[0].X = p[0].X + 7;
+            spot2[0].Y = p[0].Y + 16;
+            base.g.DrawEllipse(pen, spot2[0].X, spot2[0].Y, 3, 5);
+            base.g.FillEllipse(brush, spot2[0].X, spot2[0].Y, 4, 5);
+            Point[] spot3 = new Point[1];
+            spot3[0].X = p[0].X + 11;
+            spot3[0].Y = p[0].Y + 13;
+            base.g.DrawEllipse(pen, spot3[0].X, spot3[0].Y, 6, 7);
+            base.g.FillEllipse(brush, spot3[0].X, spot3[0].Y, 6, 7);
+            Point[] spot4 = new Point[1];
+            spot4[0].X = p[0].X + 15;
+            spot4[0].Y = p[0].Y + 2;
+            base.g.DrawEllipse(pen, spot4[0].X, spot4[0].Y, 10, 11);
+            base.g.FillEllipse(brush, spot4[0].X, spot4[0].Y, 10, 11);
+        }
+    }
+
+    public class Sky:CoreDraw
+    {
+        public Sky()
+        {
+            pen = new Pen(Color.DarkBlue);
+            brush = new SolidBrush(Color.FromArgb(30, 36, 48));
+        }
+        public void PaintSky(Point[] p)
+        {
+            base.g.FillPolygon(brush, p);
         }
     }
 }
