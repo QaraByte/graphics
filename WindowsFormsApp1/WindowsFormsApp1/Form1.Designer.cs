@@ -33,6 +33,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.txtInfo = new System.Windows.Forms.TextBox();
@@ -42,10 +43,13 @@
             this.btnWindows = new System.Windows.Forms.Button();
             this.cbColors = new System.Windows.Forms.ComboBox();
             this.timerWindows = new System.Windows.Forms.Timer(this.components);
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnMoon = new System.Windows.Forms.Button();
             this.timerSky = new System.Windows.Forms.Timer(this.components);
             this.buttonSky = new System.Windows.Forms.Button();
+            this.btnStars = new System.Windows.Forms.Button();
+            this.timerStars = new System.Windows.Forms.Timer(this.components);
+            this.timerStart = new System.Windows.Forms.Timer(this.components);
+            this.lblColorWindows = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -88,6 +92,12 @@
             this.statusLabel1.Name = "statusLabel1";
             this.statusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabel1.Text = " ";
+            // 
             // timer1
             // 
             this.timer1.Interval = 50;
@@ -115,7 +125,7 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Location = new System.Drawing.Point(145, 336);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(33, 39);
+            this.button2.Size = new System.Drawing.Size(96, 39);
             this.button2.TabIndex = 4;
             this.button2.Text = "Закрасить дома";
             this.button2.UseVisualStyleBackColor = true;
@@ -136,9 +146,9 @@
             // btnWindows
             // 
             this.btnWindows.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnWindows.Location = new System.Drawing.Point(184, 336);
+            this.btnWindows.Location = new System.Drawing.Point(247, 336);
             this.btnWindows.Name = "btnWindows";
-            this.btnWindows.Size = new System.Drawing.Size(25, 39);
+            this.btnWindows.Size = new System.Drawing.Size(90, 39);
             this.btnWindows.TabIndex = 6;
             this.btnWindows.Text = "Нарисовать окна";
             this.btnWindows.UseVisualStyleBackColor = true;
@@ -167,18 +177,12 @@
             this.timerWindows.Interval = 200;
             this.timerWindows.Tick += new System.EventHandler(this.timerWindows_Tick);
             // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 17);
-            this.toolStripStatusLabel1.Text = " ";
-            // 
             // btnMoon
             // 
             this.btnMoon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMoon.Location = new System.Drawing.Point(680, 336);
             this.btnMoon.Name = "btnMoon";
-            this.btnMoon.Size = new System.Drawing.Size(34, 39);
+            this.btnMoon.Size = new System.Drawing.Size(79, 39);
             this.btnMoon.TabIndex = 8;
             this.btnMoon.Text = "Moon";
             this.btnMoon.UseVisualStyleBackColor = true;
@@ -187,23 +191,57 @@
             // timerSky
             // 
             this.timerSky.Interval = 200;
+            this.timerSky.Tick += new System.EventHandler(this.timerSky_Tick);
             // 
             // buttonSky
             // 
             this.buttonSky.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSky.Location = new System.Drawing.Point(720, 336);
+            this.buttonSky.Location = new System.Drawing.Point(765, 336);
             this.buttonSky.Name = "buttonSky";
-            this.buttonSky.Size = new System.Drawing.Size(58, 39);
+            this.buttonSky.Size = new System.Drawing.Size(77, 39);
             this.buttonSky.TabIndex = 9;
             this.buttonSky.Text = "Ночное небо";
             this.buttonSky.UseVisualStyleBackColor = true;
             this.buttonSky.Click += new System.EventHandler(this.buttonSky_Click);
+            // 
+            // btnStars
+            // 
+            this.btnStars.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStars.Location = new System.Drawing.Point(848, 336);
+            this.btnStars.Name = "btnStars";
+            this.btnStars.Size = new System.Drawing.Size(56, 39);
+            this.btnStars.TabIndex = 10;
+            this.btnStars.Text = "Звезды";
+            this.btnStars.UseVisualStyleBackColor = true;
+            this.btnStars.Click += new System.EventHandler(this.btnStars_Click);
+            // 
+            // timerStars
+            // 
+            this.timerStars.Interval = 500;
+            this.timerStars.Tick += new System.EventHandler(this.timerStars_Tick);
+            // 
+            // timerStart
+            // 
+            this.timerStart.Enabled = true;
+            this.timerStart.Interval = 1000;
+            this.timerStart.Tick += new System.EventHandler(this.timerStart_Tick);
+            // 
+            // lblColorWindows
+            // 
+            this.lblColorWindows.AutoSize = true;
+            this.lblColorWindows.Location = new System.Drawing.Point(417, 338);
+            this.lblColorWindows.Name = "lblColorWindows";
+            this.lblColorWindows.Size = new System.Drawing.Size(62, 13);
+            this.lblColorWindows.TabIndex = 11;
+            this.lblColorWindows.Text = "Цвет окон:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(916, 408);
+            this.Controls.Add(this.lblColorWindows);
+            this.Controls.Add(this.btnStars);
             this.Controls.Add(this.buttonSky);
             this.Controls.Add(this.btnMoon);
             this.Controls.Add(this.cbColors);
@@ -218,7 +256,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Атака НЛО";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -246,6 +284,10 @@
         private System.Windows.Forms.Button btnMoon;
         private System.Windows.Forms.Timer timerSky;
         private System.Windows.Forms.Button buttonSky;
+        private System.Windows.Forms.Button btnStars;
+        private System.Windows.Forms.Timer timerStars;
+        private System.Windows.Forms.Timer timerStart;
+        private System.Windows.Forms.Label lblColorWindows;
     }
 }
 

@@ -23,6 +23,37 @@ namespace WindowsFormsApp1
             //image = Properties.Resources.hyundai_elantra;
             //rect = new Rectangle(20, 20, 70, 70);
             b = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            this.Width = pictureBox1.Width + 10;
+            this.Height = pictureBox1.Height + 35;
+            statusStrip1.Visible = false;
+            this.KeyPreview = true;
+        }
+
+        bool AltX = true;
+        //Скрытое меню
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            //base.OnKeyDown(e);
+            if (e.KeyCode == Keys.Menu && e.Alt && AltX)
+            {
+                statusStrip1.Visible = true;
+                this.Width = 932;
+                this.Height = 446;
+                txtInfo.Text += "Ширина окна: " + this.Width + Environment.NewLine;
+                txtInfo.Text += "Высота окна: " + this.Height + Environment.NewLine;
+                AltX = false;
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Menu && e.Alt && !AltX)
+            {
+                statusStrip1.Visible = false;
+                this.Width = pictureBox1.Width + 10;
+                this.Height = pictureBox1.Height + 35;
+                txtInfo.Text += "Ширина окна: " + this.Width + Environment.NewLine;
+                txtInfo.Text += "Высота окна: " + this.Height + Environment.NewLine;
+                AltX = true;
+                e.Handled = true;
+            }
         }
 
         CoreDrawCity outlinecity;
@@ -143,6 +174,7 @@ namespace WindowsFormsApp1
                 {
                     txtInfo.Text += city.windowsPoints[j] + Environment.NewLine;
                 }
+                timerSky.Enabled = true;
             }
         }
 
@@ -152,47 +184,85 @@ namespace WindowsFormsApp1
             timerWindows.Enabled = false;
         }
 
+        Moon moon;
+
         private void btnMoon_Click(object sender, EventArgs e)
         {
-            Moon moon = new Moon();
+            moon = new Moon();
             moon.g = Graphics.FromImage(b);
             moon.DrawMoon();
             pictureBox1.Image = b;
             txtInfo.Text += "Координаты луны:" + Environment.NewLine;
-            txtInfo.Text += "x=" + moon.point[0].X + ";y=" + moon.point[0].Y;
+            txtInfo.Text += "x=" + moon.point[0].X + ";y=" + moon.point[0].Y + Environment.NewLine;
+            timerStars.Enabled = true;
         }
 
         private void buttonSky_Click(object sender, EventArgs e)
         {
             if (outlinecity != null)
             {
-                //Выбираем, чтобы X и Y не были равны нулю
-                Point[] points2 = outlinecity.points.Where(t => t.IsEmpty == false).ToArray();
-                Point[] points = new Point[points2.Length + 2];
-                for (int i = 0; i < points2.Length; i++)
-                {
-                    points[i] = points2[i];
-                    if (i == points2.Length - 1)
-                    {
-                        points[i + 1].X = b.Width;
-                        points[i + 1].Y = 0;
-                        points[i + 2].X = 0;
-                        points[i + 2].Y = 0;
-                    }
-                }
-                Sky sky = new Sky();
-                sky.g = Graphics.FromImage(b);
-                sky.PaintSky(points);
-                List<string> str = new List<string>();
-                str = sky.GradientSky(points);
-                pictureBox1.Image = b;
-                for (int j = 0; j < str.Count; j++)
-                {
-                    txtInfo.Text += str[j];
-                }
+                timerSky.Enabled = true;
             }
             else
                 txtInfo.Text += "Сначала нарисуйте город";
+        }
+
+        private void timerSky_Tick(object sender, EventArgs e)
+        {
+            //Выбираем, чтобы X и Y не были равны нулю
+            Point[] points2 = outlinecity.points.Where(t => t.IsEmpty == false).ToArray();
+            Point[] points = new Point[points2.Length + 2];
+            for (int i = 0; i < points2.Length; i++)
+            {
+                points[i] = points2[i];
+                if (i == points2.Length - 1)
+                {
+                    points[i + 1].X = b.Width;
+                    points[i + 1].Y = 0;
+                    points[i + 2].X = 0;
+                    points[i + 2].Y = 0;
+                }
+            }
+            Sky sky = new Sky();
+            sky.g = Graphics.FromImage(b);
+            sky.PaintSky(points);
+            List<string> str = new List<string>();
+            str = sky.GradientSky(points);
+            pictureBox1.Image = b;
+            for (int j = 0; j < str.Count; j++)
+            {
+                txtInfo.Text += str[j];
+            }
+            timerSky.Enabled = false;
+            btnMoon_Click(btnMoon, new EventArgs());
+        }
+
+        private void btnStars_Click(object sender, EventArgs e)
+        {
+            Stars stars = new Stars();
+            stars.g = Graphics.FromImage(b);
+            if (moon != null)
+                stars.DrawStars(b.Width, b.Height, moon);
+            pictureBox1.Image = b;
+        }
+
+        int stars = 0;
+
+        private void timerStars_Tick(object sender, EventArgs e)
+        {
+            btnStars_Click(btnStars, new EventArgs());
+            stars++;
+            if (stars >= 2)
+            {
+                stars = 0;
+                timerStars.Enabled = false;
+            }
+        }
+
+        private void timerStart_Tick(object sender, EventArgs e)
+        {
+            button1_Click(button1, new EventArgs());
+            timerStart.Enabled = false;
         }
     }
 }

@@ -336,17 +336,19 @@ namespace WindowsFormsApp1
         {
             pen = new Pen(Color.FromArgb(246, 238, 236));
             brush = new SolidBrush(Color.FromArgb(246, 238, 236));
+            width = 30;
+            height = 30;
         }
 
         public Point[] point;
+        public int width;
+        public int height;
 
         public void DrawMoon()
         {
             point = new Point[1];
             point[0].X = 520;
             point[0].Y = 50;
-            int width = 30;
-            int height = 30;
             base.g.DrawEllipse(pen, point[0].X, point[0].Y, width, height);
             base.g.FillEllipse(brush, point[0].X, point[0].Y, width, height);
             this.DrawMoonSpots(point, width, height);
@@ -395,7 +397,7 @@ namespace WindowsFormsApp1
         {
             CoreDrawCity city = new CoreDrawCity(1);
             List<string> str = new List<string>();
-            const int gradientHeight = 30;
+            const int gradientHeight = 20;
             for (int i = 0; i < p.Length; i++)
             {
                 if (i < p.Length - 1)
@@ -431,6 +433,37 @@ namespace WindowsFormsApp1
                 }
             }
             return str;
+        }
+    }
+
+    public class Stars : CoreDraw
+    {
+        public Stars()
+        {
+            pen = new Pen(Color.White);
+            brush = new SolidBrush(Color.White);
+        }
+        public void DrawStars(int w, int h, Moon m)
+        {
+            Random rnd = new Random();
+            Point[] p = new Point[4];
+            for (int i = 0; i < 100; i++)
+            {
+                p[0].X = rnd.Next(10, w - 10);
+                p[0].Y = rnd.Next(10, h - 170);
+                p[1].X = p[0].X + 2;
+                p[1].Y = p[0].Y;
+                p[2].X = p[0].X + 2;
+                p[2].Y = p[0].Y + 2;
+                p[3].X = p[0].X;
+                p[3].Y = p[0].Y + 2;
+                if ((p[0].X < m.point[0].X - 5 || p[0].X > m.point[0].X + m.width + 5) ||
+                    (p[0].Y < m.point[0].Y - 5 || p[0].Y > m.point[0].Y + m.height + 5))
+                {
+                    g.DrawPolygon(pen, p);
+                    g.FillPolygon(brush, p);
+                }
+            }
         }
     }
 }
