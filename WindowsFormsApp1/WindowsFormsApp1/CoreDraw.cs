@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,7 +59,15 @@ namespace WindowsFormsApp1
         /// </summary>
         /// <param name="color">Цвет карандаша</param>
         /// <param name="w">Ширина карандаша</param>
-        public CoreDrawCity(Color color, int w)
+        public CoreDrawCity(int w)
+        {
+            pen = new Pen(Color.Blue);
+            pen.Width = w;
+            UNDERGROUND = 300;
+            directions.RIGHT = "right";
+            coords = new Coords();
+        }
+    public CoreDrawCity(Color color, int w)
         {
             pen = new Pen(color);
             pen.Width = w;
@@ -380,6 +389,48 @@ namespace WindowsFormsApp1
         public void PaintSky(Point[] p)
         {
             base.g.FillPolygon(brush, p);
+        }
+
+        public List<string> GradientSky(Point[] p)
+        {
+            CoreDrawCity city = new CoreDrawCity(1);
+            List<string> str = new List<string>();
+            const int gradientHeight = 30;
+            for (int i = 0; i < p.Length; i++)
+            {
+                if (i < p.Length - 1)
+                {
+                    if (p[i].X == p[i + 1].X)
+                    {
+                        if (p[i].X - p[i - 1].X == city.BETWEEN && p[i].Y == city.UNDERGROUND)
+                        {
+                            Rectangle rect = new Rectangle(p[i - 1].X, city.UNDERGROUND - gradientHeight, city.BETWEEN, gradientHeight * 2);
+                            LinearGradientBrush gb = new LinearGradientBrush(rect, Color.FromArgb(30, 36, 48), Color.FromArgb(206, 206, 209), LinearGradientMode.Vertical);
+                            g.FillRectangle(gb, rect.X, rect.Y + 1, city.BETWEEN, p[i].Y == city.UNDERGROUND ? gradientHeight : p[i].Y);
+                            str.Add("x=" + rect.X + ", y=;" + rect.Y + "; width=" + rect.Width + ", height=" + rect.Height + Environment.NewLine);
+                        }
+                    }
+                    else if (p[i].Y == p[i + 1].Y && p[i].Y > city.UNDERGROUND - gradientHeight && p[i].Y != city.UNDERGROUND)
+                    {
+                        Rectangle rect = new Rectangle(p[i].X, city.UNDERGROUND - gradientHeight, p[i + 1].X - p[i].X, gradientHeight * 2);
+                        LinearGradientBrush gb = new LinearGradientBrush(rect, Color.FromArgb(30, 36, 48), Color.FromArgb(206, 206, 209), LinearGradientMode.Vertical);
+                        g.FillRectangle(gb, rect.X, rect.Y + 1, rect.Width, p[i].Y - (city.UNDERGROUND - gradientHeight));
+                        str.Add("x=" + rect.X + ", y=;" + rect.Y + "; width=" + rect.Width + ", height=" + (p[i].Y - (city.UNDERGROUND - gradientHeight)) + Environment.NewLine);
+                    }
+                    else if (p[i].Y == p[i + 1].Y && p[i + 1].X > p[i].X + city.BETWEEN && p[i].Y == city.UNDERGROUND)
+                    {
+                        Rectangle rect = new Rectangle(p[i].X, city.UNDERGROUND - gradientHeight, p[i + 1].X - p[i].X, gradientHeight * 2);
+                        LinearGradientBrush gb = new LinearGradientBrush(rect, Color.FromArgb(30, 36, 48), Color.FromArgb(206, 206, 209), LinearGradientMode.Vertical);
+                        g.FillRectangle(gb, rect.X, rect.Y + 1, rect.Width, gradientHeight);
+                        str.Add("x=" + rect.X + ", y=;" + rect.Y + "; width=" + rect.Width + ", height=" + rect.Height + Environment.NewLine);
+                    }
+
+                    //Rectangle rect1 = new Rectangle(200, 10, 200, 50);
+                    //LinearGradientBrush gb1 = new LinearGradientBrush(rect1, Color.Blue, Color.White, LinearGradientMode.Vertical);
+                    //g.FillRectangle(gb1, 200, 20, 200, 100);
+                }
+            }
+            return str;
         }
     }
 }

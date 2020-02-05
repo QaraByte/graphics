@@ -57,6 +57,7 @@ namespace WindowsFormsApp1
 
             if (end)
             {
+                c = 0;
                 pictureBox1.Image = b;
                 timer1.Enabled = false;
                 timer2.Enabled = true;
@@ -68,7 +69,7 @@ namespace WindowsFormsApp1
             if (outlinecity.direction == "down")
             {
                 txtInfo.Text += "Шаг: " + c + ". " + outlinecity.direction + Environment.NewLine;
-                txtInfo.Text += "Координаты: x=[" + outlinecity.coords.x1 + ";" + outlinecity.coords.y1 + "]; y=[" + outlinecity.coords.x2 + ";" + outlinecity.coords.y2 + "]" + Environment.NewLine;
+                txtInfo.Text += "Координаты: 1=[" + outlinecity.coords.x1 + ";" + outlinecity.coords.y1 + "]; 2=[" + outlinecity.coords.x2 + ";" + outlinecity.coords.y2 + "]" + Environment.NewLine;
                 txtInfo.Text += "Количество домов: " + outlinecity.houses + Environment.NewLine;
             }
             else
@@ -163,7 +164,7 @@ namespace WindowsFormsApp1
 
         private void buttonSky_Click(object sender, EventArgs e)
         {
-            if (outlinecity.points != null)
+            if (outlinecity != null)
             {
                 //Выбираем, чтобы X и Y не были равны нулю
                 Point[] points2 = outlinecity.points.Where(t => t.IsEmpty == false).ToArray();
@@ -182,8 +183,16 @@ namespace WindowsFormsApp1
                 Sky sky = new Sky();
                 sky.g = Graphics.FromImage(b);
                 sky.PaintSky(points);
+                List<string> str = new List<string>();
+                str = sky.GradientSky(points);
                 pictureBox1.Image = b;
+                for (int j = 0; j < str.Count; j++)
+                {
+                    txtInfo.Text += str[j];
+                }
             }
+            else
+                txtInfo.Text += "Сначала нарисуйте город";
         }
     }
 }
