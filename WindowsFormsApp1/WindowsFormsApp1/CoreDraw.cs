@@ -15,7 +15,7 @@ namespace WindowsFormsApp1
         public Graphics g;
     }
 
-    public class CoreDrawCity:CoreDraw
+    public class CoreDrawCity : CoreDraw
     {
         public class Directions
         {
@@ -63,15 +63,16 @@ namespace WindowsFormsApp1
         {
             pen = new Pen(Color.Blue);
             pen.Width = w;
-            UNDERGROUND = 300;
+            UNDERGROUND = 270;
             directions.RIGHT = "right";
             coords = new Coords();
         }
-    public CoreDrawCity(Color color, int w)
+
+        public CoreDrawCity(Color color, int w)
         {
             pen = new Pen(color);
             pen.Width = w;
-            UNDERGROUND = 300;
+            UNDERGROUND = 270;
             directions.RIGHT = "right";
             coords = new Coords();
         }
@@ -137,7 +138,7 @@ namespace WindowsFormsApp1
             {
                 coords.x1 = coords.x2;
                 coords.y1 = coords.y2;
-                coords.y2 = rnd.Next(180, 280);
+                coords.y2 = rnd.Next(UNDERGROUND - 120, UNDERGROUND - 20);
             }
             else //Направление вниз
             {
@@ -177,7 +178,8 @@ namespace WindowsFormsApp1
         //Конструктор класса
         public PaintArea()
         {
-            brush = new SolidBrush(Color.FromArgb(55, 82, 99));
+            //Цвет заливки домов
+            brush = new SolidBrush(Color.FromArgb(28, 41, 71));
             pen = new Pen(brush);
         }
 
@@ -443,14 +445,15 @@ namespace WindowsFormsApp1
             pen = new Pen(Color.White);
             brush = new SolidBrush(Color.White);
         }
-        public void DrawStars(int w, int h, Moon m)
+        public void DrawStars(int w, Moon m)
         {
+            CoreDrawCity city = new CoreDrawCity(w);
             Random rnd = new Random();
             Point[] p = new Point[4];
             for (int i = 0; i < 100; i++)
             {
                 p[0].X = rnd.Next(10, w - 10);
-                p[0].Y = rnd.Next(10, h - 170);
+                p[0].Y = rnd.Next(10,  city.UNDERGROUND - 125);
                 p[1].X = p[0].X + 2;
                 p[1].Y = p[0].Y;
                 p[2].X = p[0].X + 2;

@@ -50,6 +50,9 @@
             this.timerStars = new System.Windows.Forms.Timer(this.components);
             this.timerStart = new System.Windows.Forms.Timer(this.components);
             this.lblColorWindows = new System.Windows.Forms.Label();
+            this.btnPlay = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.btnAbout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +63,7 @@
             this.button1.Location = new System.Drawing.Point(12, 336);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(127, 39);
-            this.button1.TabIndex = 0;
+            this.button1.TabIndex = 19;
             this.button1.Text = "Рисовать";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -84,7 +87,7 @@
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(916, 22);
             this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.TabIndex = 22;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // statusLabel1
@@ -118,7 +121,7 @@
             this.txtInfo.ReadOnly = true;
             this.txtInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtInfo.Size = new System.Drawing.Size(227, 330);
-            this.txtInfo.TabIndex = 3;
+            this.txtInfo.TabIndex = 31;
             // 
             // button2
             // 
@@ -126,7 +129,7 @@
             this.button2.Location = new System.Drawing.Point(145, 336);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(96, 39);
-            this.button2.TabIndex = 4;
+            this.button2.TabIndex = 41;
             this.button2.Text = "Закрасить дома";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Visible = false;
@@ -235,11 +238,55 @@
             this.lblColorWindows.TabIndex = 11;
             this.lblColorWindows.Text = "Цвет окон:";
             // 
+            // btnPlay
+            // 
+            this.btnPlay.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.btnPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnPlay.ForeColor = System.Drawing.Color.Azure;
+            this.btnPlay.Location = new System.Drawing.Point(247, 295);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(106, 28);
+            this.btnPlay.TabIndex = 0;
+            this.btnPlay.Text = "Играть";
+            this.btnPlay.UseVisualStyleBackColor = false;
+            // 
+            // btnExit
+            // 
+            this.btnExit.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnExit.ForeColor = System.Drawing.Color.PowderBlue;
+            this.btnExit.Location = new System.Drawing.Point(359, 295);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(106, 28);
+            this.btnExit.TabIndex = 1;
+            this.btnExit.Text = "Выйти";
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // btnAbout
+            // 
+            this.btnAbout.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.btnAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnAbout.ForeColor = System.Drawing.Color.PowderBlue;
+            this.btnAbout.Location = new System.Drawing.Point(637, 295);
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(28, 28);
+            this.btnAbout.TabIndex = 2;
+            this.btnAbout.Text = "?";
+            this.btnAbout.UseVisualStyleBackColor = false;
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(916, 408);
+            this.Controls.Add(this.btnAbout);
+            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.lblColorWindows);
             this.Controls.Add(this.btnStars);
             this.Controls.Add(this.buttonSky);
@@ -288,6 +335,9 @@
         private System.Windows.Forms.Timer timerStars;
         private System.Windows.Forms.Timer timerStart;
         private System.Windows.Forms.Label lblColorWindows;
+        private System.Windows.Forms.Button btnPlay;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnAbout;
     }
 }
 

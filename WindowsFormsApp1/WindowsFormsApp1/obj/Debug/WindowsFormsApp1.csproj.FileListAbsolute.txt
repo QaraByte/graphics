@@ -8,3 +8,4 @@ C:\Users\beN\Documents\Visual Studio 2017\Projects\Draw\WindowsFormsApp1\Windows
 C:\Users\beN\Documents\Visual Studio 2017\Projects\Draw\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
 C:\Users\beN\Documents\Visual Studio 2017\Projects\Draw\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\beN\Documents\Visual Studio 2017\Projects\Draw\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Users\beN\Documents\Visual Studio 2017\Projects\Draw\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.About.resources

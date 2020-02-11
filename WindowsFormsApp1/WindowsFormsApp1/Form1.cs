@@ -242,7 +242,7 @@ namespace WindowsFormsApp1
             Stars stars = new Stars();
             stars.g = Graphics.FromImage(b);
             if (moon != null)
-                stars.DrawStars(b.Width, b.Height, moon);
+                stars.DrawStars(b.Width, moon);
             pictureBox1.Image = b;
         }
 
@@ -263,6 +263,17 @@ namespace WindowsFormsApp1
         {
             button1_Click(button1, new EventArgs());
             timerStart.Enabled = false;
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+            About about = new About();
+            about.ShowDialog();
         }
     }
 }
