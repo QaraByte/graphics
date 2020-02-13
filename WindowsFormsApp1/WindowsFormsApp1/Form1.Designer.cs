@@ -53,6 +53,7 @@
             this.btnPlay = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
+            this.timerGame = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +78,7 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
             // statusStrip1
             // 
@@ -250,6 +252,8 @@
             this.btnPlay.TabIndex = 0;
             this.btnPlay.Text = "Играть";
             this.btnPlay.UseVisualStyleBackColor = false;
+            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
+            this.btnPlay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnPlay_MouseMove);
             // 
             // btnExit
             // 
@@ -278,6 +282,11 @@
             this.btnAbout.Text = "?";
             this.btnAbout.UseVisualStyleBackColor = false;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            // 
+            // timerGame
+            // 
+            this.timerGame.Enabled = true;
+            this.timerGame.Interval = 1000;
             // 
             // Form1
             // 
@@ -338,6 +347,7 @@
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnAbout;
+        private System.Windows.Forms.Timer timerGame;
     }
 }
 

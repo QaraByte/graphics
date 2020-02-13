@@ -275,5 +275,35 @@ namespace WindowsFormsApp1
             About about = new About();
             about.ShowDialog();
         }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            if (btnPlay.Text == "Играть")
+            {
+                btnClear_Click(btnClear, new EventArgs());
+                btnExit.Visible = false;
+                btnAbout.Visible = false;
+                timerGame.Enabled = true;
+                btnPlay.Text = "Стоп";
+            }
+            else
+            {
+                btnExit.Visible = true;
+                btnAbout.Visible = true;
+                btnPlay.Text = "Играть";
+            }
+        }
+
+        private void btnPlay_MouseMove(object sender, MouseEventArgs e)
+        {
+            int newSize = 10;
+            btnPlay.Font = new Font(btnPlay.Font.FontFamily, newSize);
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            int newSize = 9;
+            btnPlay.Font = new Font(btnPlay.Font.FontFamily, newSize);
+        }
     }
 }
