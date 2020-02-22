@@ -13,20 +13,21 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         Bitmap b;
-
-        //Image image;
-        //Rectangle rect;
+        Image image;
+        Rectangle rect;
 
         public Form1()
         {
             InitializeComponent();
-            //image = Properties.Resources.hyundai_elantra;
-            //rect = new Rectangle(20, 20, 70, 70);
             b = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             this.Width = pictureBox1.Width + 10;
             this.Height = pictureBox1.Height + 35;
             statusStrip1.Visible = false;
             this.KeyPreview = true;
+
+            pictureBox1.Paint += new PaintEventHandler(pictureBox1_Paint);
+            image = Properties.Resources.spaceship001;
+            rect = new Rectangle(20, 20, 50, 30);
         }
 
         bool AltX = true;
@@ -66,12 +67,6 @@ namespace WindowsFormsApp1
             txtInfo.Text += "Ширина холста: " + b.Width + Environment.NewLine;
             timer1.Enabled = true;
             button1.Enabled = false;
-        }
-
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
-        {
-            //g = e.Graphics;
-            //g.DrawImage(image, rect);
         }
 
         int c = 1;
@@ -122,7 +117,7 @@ namespace WindowsFormsApp1
         {
             city = new PaintArea();
             city.g = Graphics.FromImage(b);
-            
+
             if (outlinecity != null)
             {
                 //Выбираем, чтобы X и Y не были равны нулю
@@ -304,6 +299,37 @@ namespace WindowsFormsApp1
         {
             int newSize = 9;
             btnPlay.Font = new Font(btnPlay.Font.FontFamily, newSize);
+        }
+
+        Graphics g;
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            /*g = e.Graphics;
+            g.DrawImage(image, rect);
+            if (rect.X <= pictureBox1.Width)
+                rect.X += 1;
+            else
+                rect.X = 0;
+            pictureBox1.Image = b;*/
+            
+            //rect = new Rectangle(20, 20, 70, 70);
+            //g = Graphics;
+            //image = Properties.Resources.hyundai_elantra;
+            //g.DrawImage(image, rect);
+            //g = Graphics.FromImage(b);
+        }
+
+        private void timerGame_Tick(object sender, EventArgs e)
+        {
+            
+            
+            //Invalidate();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            timerGame.Enabled = timerGame.Enabled == true ? timerGame.Enabled = false : timerGame.Enabled = true;
         }
     }
 }

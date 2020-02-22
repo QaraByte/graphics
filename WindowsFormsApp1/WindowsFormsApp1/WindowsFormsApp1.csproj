@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="Resources\hyundai-elantra.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ufo.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spaceship001.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
