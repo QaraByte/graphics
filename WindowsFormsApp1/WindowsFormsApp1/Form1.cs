@@ -302,17 +302,26 @@ namespace WindowsFormsApp1
         }
 
         Graphics g;
+        int c1 = 0;
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            /*g = e.Graphics;
+            g = e.Graphics;
             g.DrawImage(image, rect);
             if (rect.X <= pictureBox1.Width)
-                rect.X += 1;
+            {
+                if (c1 % 5 == 0)
+                    rect.X += 1;
+            }
             else
+            {
                 rect.X = 0;
-            pictureBox1.Image = b;*/
-            
+                c1 = 0;
+            }
+
+            pictureBox1.Image = b;
+            c1++;
+
             //rect = new Rectangle(20, 20, 70, 70);
             //g = Graphics;
             //image = Properties.Resources.hyundai_elantra;
@@ -322,8 +331,8 @@ namespace WindowsFormsApp1
 
         private void timerGame_Tick(object sender, EventArgs e)
         {
-            
-            
+
+            pictureBox1_Paint(pictureBox1, new PaintEventArgs());
             //Invalidate();
         }
 
