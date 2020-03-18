@@ -13,8 +13,6 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         Bitmap b;
-        Image image;
-        Rectangle rect;
 
         public Form1()
         {
@@ -26,8 +24,6 @@ namespace WindowsFormsApp1
             this.KeyPreview = true;
 
             pictureBox1.Paint += new PaintEventHandler(pictureBox1_Paint);
-            image = Properties.Resources.spaceship001;
-            rect = new Rectangle(20, 20, 50, 30);
         }
 
         bool AltX = true;
@@ -278,67 +274,78 @@ namespace WindowsFormsApp1
                 btnClear_Click(btnClear, new EventArgs());
                 btnExit.Visible = false;
                 btnAbout.Visible = false;
-                timerGame.Enabled = true;
+                //timerGame.Enabled = true;
+                game = true;
                 btnPlay.Text = "Стоп";
             }
             else
             {
+                game = false;
                 btnExit.Visible = true;
                 btnAbout.Visible = true;
                 btnPlay.Text = "Играть";
             }
         }
 
-        private void btnPlay_MouseMove(object sender, MouseEventArgs e)
-        {
-            int newSize = 10;
-            btnPlay.Font = new Font(btnPlay.Font.FontFamily, newSize);
-        }
-
-        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
-        {
-            int newSize = 9;
-            btnPlay.Font = new Font(btnPlay.Font.FontFamily, newSize);
-        }
-
         Graphics g;
-        int c1 = 0;
+        bool game = false;
+        int y = 20;
+        int y2 = 40;
+        Ships ship = new Ships(20, 20);
+        Ships ship2 = new Ships(20, 40);
+        Random rnd = new Random();
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            g = e.Graphics;
-            g.DrawImage(image, rect);
-            if (rect.X <= pictureBox1.Width)
+            if (game)
             {
-                if (c1 % 5 == 0)
-                    rect.X += 1;
-            }
-            else
-            {
-                rect.X = 0;
-                c1 = 0;
-            }
+                g = e.Graphics;
+                g.DrawImage(ship.image, ship.rect);
+                g.DrawImage(ship2.image, ship2.rect);
+                if (ship.rect.X <= pictureBox1.Width)
+                {
+                    //Если кратно пяти, то смещаем объект вправо
+                    if (ship.c % 5 == 0)
+                        ship.rect.X += 1;
+                }
+                else
+                {
+                    ship.rect.X = 0;
+                    y = rnd.Next(20, 150);
+                    ship.rect.Y = y;
+                    ship.c = 0;
+                }
+                if (ship2.rect.X <= pictureBox1.Width)
+                {
+                    //Если кратно пяти, то смещаем объект вправо
+                    if (ship2.c % 5 == 0)
+                        ship2.rect.X += 1;
+                }
+                else
+                {
+                    ship2.rect.X = 0;
+                    y = rnd.Next(20, 150);
+                    ship.rect.Y = y;
+                    ship2.c = 0;
+                }
 
-            pictureBox1.Image = b;
-            c1++;
-
-            //rect = new Rectangle(20, 20, 70, 70);
-            //g = Graphics;
-            //image = Properties.Resources.hyundai_elantra;
-            //g.DrawImage(image, rect);
-            //g = Graphics.FromImage(b);
+                pictureBox1.Image = b;
+                ship.c++;
+                ship2.c++;
+            }
         }
 
         private void timerGame_Tick(object sender, EventArgs e)
         {
-
-            pictureBox1_Paint(pictureBox1, new PaintEventArgs());
+            
+            timerGame.Enabled = false;
+            //pictureBox1_Paint(pictureBox1, new PaintEventArgs());
             //Invalidate();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            timerGame.Enabled = timerGame.Enabled == true ? timerGame.Enabled = false : timerGame.Enabled = true;
+            //timerGame.Enabled = timerGame.Enabled == true ? timerGame.Enabled = false : timerGame.Enabled = true;
         }
     }
 }
