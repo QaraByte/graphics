@@ -275,12 +275,12 @@ namespace WindowsFormsApp1
                 btnExit.Visible = false;
                 btnAbout.Visible = false;
                 //timerGame.Enabled = true;
-                game = true;
+                ship.go = true;
                 btnPlay.Text = "Стоп";
             }
             else
             {
-                game = false;
+                ship.go = false;
                 btnExit.Visible = true;
                 btnAbout.Visible = true;
                 btnPlay.Text = "Играть";
@@ -288,7 +288,6 @@ namespace WindowsFormsApp1
         }
 
         Graphics g;
-        bool game = false;
         int y = 20;
         int y2 = 40;
         Ships ship = new Ships(20, 20);
@@ -297,7 +296,7 @@ namespace WindowsFormsApp1
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            if (game)
+            if (ship.go)
             {
                 g = e.Graphics;
                 g.DrawImage(ship.image, ship.rect);
@@ -315,22 +314,28 @@ namespace WindowsFormsApp1
                     ship.rect.Y = y;
                     ship.c = 0;
                 }
+                if (!ship2.go && ship.rect.X > 50)
+                    ship2.go = true;
+
+                pictureBox1.Image = b;
+                ship.c++;
+            }
+            if (ship2.go)
+            {
                 if (ship2.rect.X <= pictureBox1.Width)
                 {
-                    //Если кратно пяти, то смещаем объект вправо
-                    if (ship2.c % 5 == 0)
+                    //Если кратно шести, то смещаем объект вправо
+                    if (ship2.c % 6 == 0)
                         ship2.rect.X += 1;
                 }
                 else
                 {
                     ship2.rect.X = 0;
-                    y = rnd.Next(20, 150);
-                    ship.rect.Y = y;
+                    y2 = rnd.Next(20, 150);
+                    ship2.rect.Y = y2;
                     ship2.c = 0;
                 }
-
                 pictureBox1.Image = b;
-                ship.c++;
                 ship2.c++;
             }
         }

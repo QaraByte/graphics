@@ -12,6 +12,7 @@ namespace WindowsFormsApp1
         public Image image;
         public Rectangle rect;
         public int c=0;
+        public bool go = false;
 
         public Ships(int x, int y)
         {
