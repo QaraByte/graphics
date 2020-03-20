@@ -320,10 +320,6 @@ namespace WindowsFormsApp1
                     g.DrawPolygon(pen, p);
                     g.FillPolygon(brush, p);
                     x1 = x1 + hW + windowWidth;
-                    //windowsPoints.Add("[0]=[" + p[0].X + ";" + p[0].Y + "]");
-                    //windowsPoints.Add("[1]=[" + p[1].X + ";" + p[1].Y + "]");
-                    //windowsPoints.Add("[2]=[" + p[2].X + ";" + p[2].Y + "]");
-                    //windowsPoints.Add("[3]=[" + p[3].X + ";" + p[3].Y + "]");
                 }
                 //Следующий ряд окон
                 y1 = y1 + wW;
@@ -467,6 +463,57 @@ namespace WindowsFormsApp1
                     g.FillPolygon(brush, p);
                 }
             }
+        }
+    }
+
+    public class Weapon : CoreDraw
+    {
+        public Weapon()
+        {
+            pen = new Pen(Color.Blue);
+            brush = new SolidBrush(Color.Blue);
+        }
+
+        public void DrawWeapon(int x, int y, int width)
+        {
+            //Основание
+            Point[] p = new Point[4];
+            p[0].X = x + width / 2 - 10;
+            p[0].Y = y + 5;
+            p[1].X = p[0].X + 20;
+            p[1].Y = y + 5;
+            p[2].X = p[0].X + 20;
+            p[2].Y = y + 30;
+            p[3].X = x + width / 2 - 10;
+            p[3].Y = y + 30;
+
+            g.DrawPolygon(pen, p);
+
+            //Шапка
+            Point[] cap = new Point[4];
+            cap[0].X = x + width / 2 - 15;
+            cap[0].Y = y;
+            cap[1].X = cap[0].X + 30;
+            cap[1].Y = y;
+            cap[2].X = cap[0].X + 30;
+            cap[2].Y = y + 5;
+            cap[3].X = x + width / 2 - 15;
+            cap[3].Y = y + 5;
+
+            g.DrawPolygon(pen, cap);
+
+            //Ствол
+            Point[] barrel = new Point[4];
+            barrel[0].X = x + width / 2 - 3;
+            barrel[0].Y = y - 20;
+            barrel[1].X = barrel[0].X + 3;
+            barrel[1].Y = y - 20;
+            barrel[2].X = barrel[0].X + 3;
+            barrel[2].Y = y;
+            barrel[3].X = x + width / 2 - 3;
+            barrel[3].Y = y;
+
+            g.DrawPolygon(pen, barrel);
         }
     }
 }

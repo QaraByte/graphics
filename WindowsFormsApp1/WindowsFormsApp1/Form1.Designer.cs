@@ -62,7 +62,7 @@
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(12, 336);
+            this.button1.Location = new System.Drawing.Point(15, 382);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(127, 39);
             this.button1.TabIndex = 19;
@@ -75,7 +75,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel1,
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 386);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 424);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(916, 22);
             this.statusStrip1.SizingGrip = false;
@@ -112,13 +112,13 @@
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.ReadOnly = true;
             this.txtInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtInfo.Size = new System.Drawing.Size(227, 330);
+            this.txtInfo.Size = new System.Drawing.Size(227, 376);
             this.txtInfo.TabIndex = 31;
             // 
             // button2
             // 
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(145, 336);
+            this.button2.Location = new System.Drawing.Point(148, 382);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(96, 39);
             this.button2.TabIndex = 41;
@@ -130,7 +130,7 @@
             // btnClear
             // 
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClear.Location = new System.Drawing.Point(547, 336);
+            this.btnClear.Location = new System.Drawing.Point(550, 382);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(127, 39);
             this.btnClear.TabIndex = 5;
@@ -141,7 +141,7 @@
             // btnWindows
             // 
             this.btnWindows.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnWindows.Location = new System.Drawing.Point(247, 336);
+            this.btnWindows.Location = new System.Drawing.Point(250, 382);
             this.btnWindows.Name = "btnWindows";
             this.btnWindows.Size = new System.Drawing.Size(90, 39);
             this.btnWindows.TabIndex = 6;
@@ -162,7 +162,7 @@
             "Белый",
             "Фиолетовый",
             "Розовый"});
-            this.cbColors.Location = new System.Drawing.Point(420, 354);
+            this.cbColors.Location = new System.Drawing.Point(423, 400);
             this.cbColors.Name = "cbColors";
             this.cbColors.Size = new System.Drawing.Size(121, 21);
             this.cbColors.TabIndex = 7;
@@ -175,7 +175,7 @@
             // btnMoon
             // 
             this.btnMoon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMoon.Location = new System.Drawing.Point(680, 336);
+            this.btnMoon.Location = new System.Drawing.Point(683, 382);
             this.btnMoon.Name = "btnMoon";
             this.btnMoon.Size = new System.Drawing.Size(79, 39);
             this.btnMoon.TabIndex = 8;
@@ -191,7 +191,7 @@
             // buttonSky
             // 
             this.buttonSky.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSky.Location = new System.Drawing.Point(765, 336);
+            this.buttonSky.Location = new System.Drawing.Point(768, 382);
             this.buttonSky.Name = "buttonSky";
             this.buttonSky.Size = new System.Drawing.Size(77, 39);
             this.buttonSky.TabIndex = 9;
@@ -202,7 +202,7 @@
             // btnStars
             // 
             this.btnStars.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStars.Location = new System.Drawing.Point(848, 336);
+            this.btnStars.Location = new System.Drawing.Point(851, 382);
             this.btnStars.Name = "btnStars";
             this.btnStars.Size = new System.Drawing.Size(56, 39);
             this.btnStars.TabIndex = 10;
@@ -217,14 +217,13 @@
             // 
             // timerStart
             // 
-            this.timerStart.Enabled = true;
             this.timerStart.Interval = 1000;
             this.timerStart.Tick += new System.EventHandler(this.timerStart_Tick);
             // 
             // lblColorWindows
             // 
             this.lblColorWindows.AutoSize = true;
-            this.lblColorWindows.Location = new System.Drawing.Point(417, 338);
+            this.lblColorWindows.Location = new System.Drawing.Point(420, 382);
             this.lblColorWindows.Name = "lblColorWindows";
             this.lblColorWindows.Size = new System.Drawing.Size(62, 13);
             this.lblColorWindows.TabIndex = 11;
@@ -236,7 +235,7 @@
             this.btnPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnPlay.ForeColor = System.Drawing.Color.Azure;
-            this.btnPlay.Location = new System.Drawing.Point(247, 295);
+            this.btnPlay.Location = new System.Drawing.Point(247, 339);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(106, 28);
             this.btnPlay.TabIndex = 0;
@@ -250,7 +249,7 @@
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnExit.ForeColor = System.Drawing.Color.PowderBlue;
-            this.btnExit.Location = new System.Drawing.Point(359, 295);
+            this.btnExit.Location = new System.Drawing.Point(359, 339);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(106, 28);
             this.btnExit.TabIndex = 1;
@@ -264,7 +263,7 @@
             this.btnAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnAbout.ForeColor = System.Drawing.Color.PowderBlue;
-            this.btnAbout.Location = new System.Drawing.Point(637, 295);
+            this.btnAbout.Location = new System.Drawing.Point(637, 339);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(28, 28);
             this.btnAbout.TabIndex = 2;
@@ -281,7 +280,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(674, 330);
+            this.pictureBox1.Size = new System.Drawing.Size(674, 376);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
@@ -289,7 +288,7 @@
             // button3
             // 
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(508, 295);
+            this.button3.Location = new System.Drawing.Point(508, 339);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(79, 28);
             this.button3.TabIndex = 42;
@@ -301,7 +300,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(916, 408);
+            this.ClientSize = new System.Drawing.Size(916, 446);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.btnExit);

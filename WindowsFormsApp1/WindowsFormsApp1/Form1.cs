@@ -292,7 +292,9 @@ namespace WindowsFormsApp1
         int y2 = 40;
         Ships ship = new Ships(20, 20);
         Ships ship2 = new Ships(20, 40);
+        Ships ship3 = new Ships(20, 50);
         Random rnd = new Random();
+        Weapon weapon = new Weapon();
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
@@ -300,11 +302,11 @@ namespace WindowsFormsApp1
             {
                 g = e.Graphics;
                 g.DrawImage(ship.image, ship.rect);
-                g.DrawImage(ship2.image, ship2.rect);
+                
                 if (ship.rect.X <= pictureBox1.Width)
                 {
-                    //Если кратно пяти, то смещаем объект вправо
-                    if (ship.c % 5 == 0)
+                    //Если кратно шести, то смещаем объект вправо
+                    if (ship.c % 6 == 0)
                         ship.rect.X += 1;
                 }
                 else
@@ -322,6 +324,8 @@ namespace WindowsFormsApp1
             }
             if (ship2.go)
             {
+                g.DrawImage(ship2.image, ship2.rect);
+
                 if (ship2.rect.X <= pictureBox1.Width)
                 {
                     //Если кратно шести, то смещаем объект вправо
@@ -335,9 +339,34 @@ namespace WindowsFormsApp1
                     ship2.rect.Y = y2;
                     ship2.c = 0;
                 }
+                if (!ship3.go && ship2.rect.X > 50)
+                    ship3.go = true;
                 pictureBox1.Image = b;
                 ship2.c++;
             }
+            if (ship3.go)
+            {
+                g.DrawImage(ship3.image, ship3.rect);
+
+                if (ship3.rect.X <= pictureBox1.Width)
+                {
+                    //Если кратно пяти, то смещаем объект вправо
+                    if (ship3.c % 5 == 0)
+                        ship3.rect.X += 1;
+                }
+                else
+                {
+                    ship3.rect.X = 0;
+                    y2 = rnd.Next(20, 150);
+                    ship3.rect.Y = y2;
+                    ship3.c = 0;
+                }
+                pictureBox1.Image = b;
+                ship3.c++;
+            }
+            weapon.g = Graphics.FromImage(b);
+            weapon.DrawWeapon(btnPlay.Location.X, btnPlay.Location.Y - 40, btnPlay.Width);
+            pictureBox1.Image = b;
         }
 
         private void timerGame_Tick(object sender, EventArgs e)
