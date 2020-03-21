@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace WindowsFormsApp1
 {
@@ -27,15 +29,21 @@ namespace WindowsFormsApp1
         }
 
         bool AltX = true;
-        //Скрытое меню
+        int step = 0;
+
+        [DllImport("user32.dll")]
+        public static extern int GetKeyboardState(byte[] keystate);
+        byte[] keys = new byte[256];
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
+            #region Скрытое меню
             //base.OnKeyDown(e);
             if (e.KeyCode == Keys.Menu && e.Alt && AltX)
             {
                 statusStrip1.Visible = true;
-                this.Width = 932;
-                this.Height = 446;
+                this.Width = this.Width + 247;
+                this.Height = this.Height + 76;
                 txtInfo.Text += "Ширина окна: " + this.Width + Environment.NewLine;
                 txtInfo.Text += "Высота окна: " + this.Height + Environment.NewLine;
                 AltX = false;
@@ -50,6 +58,45 @@ namespace WindowsFormsApp1
                 txtInfo.Text += "Высота окна: " + this.Height + Environment.NewLine;
                 AltX = true;
                 e.Handled = true;
+            }
+            #endregion
+
+            GetKeyboardState(keys);
+
+            if (weapon.enabled)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Right:
+                        //Чтобы старый ствол затирался
+                        weapon.g.Clear(Color.White);
+
+                        step++;
+                        //weapon.g = Graphics.FromImage(b);
+                        weapon.DrawBarrel(btnPlay.Location.X + step, btnPlay.Location.Y - 40, btnPlay.Width);
+                        pictureBox1.Image = b;
+
+                        txtInfo.Text += "Weapon------------------------" + Environment.NewLine;
+                        txtInfo.Text += "x=" + weapon.x + "; y=" + weapon.y + Environment.NewLine;
+                        break;
+                    case Keys.Left:
+                        //Чтобы старый ствол затирался
+                        weapon.g.Clear(Color.White);
+
+                        step--;
+                        weapon.g = Graphics.FromImage(b);
+                        //using (weapon.g = Graphics.FromImage(b))
+                        //{
+                        weapon.DrawBarrel(btnPlay.Location.X + step, btnPlay.Location.Y - 40, btnPlay.Width);
+                        //}
+
+                        //pictureBox1.Image = b;
+                        //this.Refresh();
+
+                        txtInfo.Text += "Weapon------------------------";
+                        txtInfo.Text += "x=" + weapon.x + "; y=" + weapon.y;
+                        break;
+                }
             }
         }
 
@@ -267,24 +314,32 @@ namespace WindowsFormsApp1
             about.ShowDialog();
         }
 
+        ButtonStop buttonStop = new ButtonStop();
+
         private void btnPlay_Click(object sender, EventArgs e)
         {
             if (btnPlay.Text == "Играть")
             {
-                btnClear_Click(btnClear, new EventArgs());
+                buttonStop.g = Graphics.FromImage(b);
+                buttonStop.DrawButton(btnPlay.Location.X, btnPlay.Location.Y, btnPlay.Width, btnPlay.Height);
+                pictureBox1.Image = b;
                 btnExit.Visible = false;
                 btnAbout.Visible = false;
+                button3.Visible = false;
                 //timerGame.Enabled = true;
                 ship.go = true;
-                btnPlay.Text = "Стоп";
+                //btnPlay.Text = "Стоп";
+                btnPlay.Visible = false;
+                btnClear_Click(btnClear, new EventArgs());
             }
-            else
-            {
-                ship.go = false;
-                btnExit.Visible = true;
-                btnAbout.Visible = true;
-                btnPlay.Text = "Играть";
-            }
+            //else
+            //{
+            //    ship.go = false;
+            //    btnExit.Visible = true;
+            //    btnAbout.Visible = true;
+            //    button3.Visible = true;
+            //    btnPlay.Text = "Играть";
+            //}
         }
 
         Graphics g;
@@ -302,7 +357,7 @@ namespace WindowsFormsApp1
             {
                 g = e.Graphics;
                 g.DrawImage(ship.image, ship.rect);
-                
+
                 if (ship.rect.X <= pictureBox1.Width)
                 {
                     //Если кратно шести, то смещаем объект вправо
@@ -321,6 +376,8 @@ namespace WindowsFormsApp1
 
                 pictureBox1.Image = b;
                 ship.c++;
+
+                weapon.enabled = true;
             }
             if (ship2.go)
             {
@@ -364,9 +421,12 @@ namespace WindowsFormsApp1
                 pictureBox1.Image = b;
                 ship3.c++;
             }
-            weapon.g = Graphics.FromImage(b);
-            weapon.DrawWeapon(btnPlay.Location.X, btnPlay.Location.Y - 40, btnPlay.Width);
-            pictureBox1.Image = b;
+            if (weapon.enabled)
+            {
+                weapon.g = Graphics.FromImage(b);
+                weapon.DrawWeapon(btnPlay.Location.X, btnPlay.Location.Y - 40, btnPlay.Width);
+                pictureBox1.Image = b;
+            }
         }
 
         private void timerGame_Tick(object sender, EventArgs e)

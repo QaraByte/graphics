@@ -468,6 +468,10 @@ namespace WindowsFormsApp1
 
     public class Weapon : CoreDraw
     {
+        public bool enabled = false;
+        public int x;
+        public int y;
+
         public Weapon()
         {
             pen = new Pen(Color.Blue);
@@ -503,17 +507,49 @@ namespace WindowsFormsApp1
             g.DrawPolygon(pen, cap);
 
             //Ствол
+            DrawBarrel(x, y, width);
+
+            //x = barrel[0].X;
+            //y = barrel[0].Y;
+        }
+
+        public void DrawBarrel(int x, int y, int w)
+        {
             Point[] barrel = new Point[4];
-            barrel[0].X = x + width / 2 - 3;
-            barrel[0].Y = y - 20;
-            barrel[1].X = barrel[0].X + 3;
-            barrel[1].Y = y - 20;
-            barrel[2].X = barrel[0].X + 3;
-            barrel[2].Y = y;
-            barrel[3].X = x + width / 2 - 3;
+            barrel[0].X = x + w / 2 - 3;
+            barrel[0].Y = y - 30;
+            barrel[1].X = barrel[0].X + 6;
+            barrel[1].Y = y - 30;
+            barrel[2].X = barrel[0].X + 6;
+            barrel[2].Y = y - 0;
+            barrel[3].X = x + w / 2 - 3;
             barrel[3].Y = y;
 
             g.DrawPolygon(pen, barrel);
+        }
+    }
+
+    public class ButtonStop:CoreDraw
+    {
+        public ButtonStop()
+        {
+            pen = new Pen(Color.Blue);
+            brush = new SolidBrush(Color.Blue);
+        }
+
+        public void DrawButton(int x, int y, int width, int height)
+        {
+            Point[] button = new Point[4];
+            button[0].X = x;
+            button[0].Y = y;
+            button[1].X = x + width;
+            button[1].Y = y;
+            button[2].X = x + width;
+            button[2].Y = y + height;
+            button[3].X = x;
+            button[3].Y = y + height;
+
+            g.DrawPolygon(pen, button);
         }
     }
 }

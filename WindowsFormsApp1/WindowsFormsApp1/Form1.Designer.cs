@@ -217,6 +217,7 @@
             // 
             // timerStart
             // 
+            this.timerStart.Enabled = true;
             this.timerStart.Interval = 1000;
             this.timerStart.Tick += new System.EventHandler(this.timerStart_Tick);
             // 
@@ -294,6 +295,7 @@
             this.button3.TabIndex = 42;
             this.button3.Text = "game";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
